@@ -98,10 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start game event
   startButton.addEventListener("click", () => {
-    if (!isGameRunning) {
+    if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
       isGameRunning = true;
       startButton.disabled = true; // Disable the start button
-      resetGame();
       setInitialBallDirection();
       gameLoop();
     }
@@ -152,8 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ballPosition.y >= gameBounds.height - ball.offsetHeight) { // Ball hits bottom of the viewport
       lives--;
       livesDisplay.textContent = `Lives: ${lives}`;
-      resetBallAndPaddle();
-      if (lives === 0) {
+      if (lives > 0) {
+        resetBallAndPaddle();
+        startButton.disabled = false; // Re-enable the start button
+      } else {
         alert("Game Over!");
         isGameRunning = false;
         resetGame();
@@ -167,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Game loop
   function gameLoop() {
-    if (isGameRunning) {
+    if (isGameRunning || lives > 0 || ballSpeed.x !== 0 || ballSpeed.y !== 0) {
       moveBall();
       requestAnimationFrame(gameLoop);
     }
