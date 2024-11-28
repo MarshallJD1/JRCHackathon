@@ -40,6 +40,13 @@ body {
   height: 100vh;
 }
 
+/* Colours the modal content in #222 */
+
+.modal-content {
+  background-color: #222;
+  color: white;
+}
+
 #game-container {
   display: flex;
   flex-direction: column;
