@@ -67,7 +67,7 @@ h1 {
   width: 100px;
   height: 10px;
   background-color: white;
-  /* transform: translateX(-50%); */
+  /* transform: translateX(-50%); taken out */
 }
 
 #ball {
