@@ -1,6 +1,36 @@
+/* Google fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap');
+
+/* CSS Variables */
+:root {
+    /* fonts */
+    --primary-font: "Geo", sans-serif;
+    --secondary-font: sans-serif;
+    /* font color */
+    --primary-color: #f9f5ef; /* white */
+    --secondary-color: #8a8fc4; /* blue-light */
+    --highlight-color: #d88038; /* orange */
+    --highlight-color-light: #e3d245; /* yellow */
+
+    /* background color */
+    --background-color: #f9f5ef; /* white (change to black) */
+    
+    /* game elements */
+    /* brick color */
+    --brick-a: #a13d3b; /* red */
+    --brick-b: #6c8c50; /* green */
+    --brick-c: #8a8fc4; /* blue-light */
+    /* ball color */
+    --ball: #e3d245; /* yellow */
+    /* paddle color */
+    --paddle: #9a407e /* violet */
+
+    
+}
+
 /* styles.css */
 body {
-  font-family: Arial, sans-serif;
+  font-family: , sans-serif;
   background-color: #222;
   color: white;
   display: flex;
