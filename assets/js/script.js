@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize game variables
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
-  let paddlePosition = 250; // Initial position of the paddle
+  let paddlePosition = 250; // Initial position of the paddlegit 
   let score = 0; // Initial score
   let lives = 3; // Initial number of lives
   let isGameRunning = false; // Game state
