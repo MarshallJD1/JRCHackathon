@@ -40,6 +40,11 @@ body {
   height: 100vh;
 }
 
+.modal-content {
+  background-color: #222;
+  color: white;
+}
+
 h1 {
   text-transform: uppercase;
 }
