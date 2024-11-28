@@ -1,4 +1,28 @@
+/* Google fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap');
+
+/* CSS Variables */
+:root {
+    /* fonts */
+    --primary-font: "Geo", sans-serif;
+    --secondary-font: sans-serif;
+    /* font color */
+    --primary-color: #3a2620; /* dark brown */
+    --secondary-color: #aa9581; /* light brown */
+    --highlight-color: #416a8e; /* blue */
+    --highlight-color-light: #7a9fc2; /* light blue */
+
+    /* background color */
+    --background-color: #670da3;
+}
+
 body {
-    background-color: #670da3;
+    font-family: var(--primary-font);
+    background-color: var(--background-color);
     text-align: center;
+}
+
+h1 {
+    font-family: var(--primary-font);
+    color: var(--secondary-color);
 }
