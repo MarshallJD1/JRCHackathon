@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         brick.remove();
         score++;
         scoreDisplay.textContent = `Score: ${score}`;
+        console.log("Brick Removed: ", brick);
         break; // Exit the loop after hitting one brick
       }
     }

@@ -118,5 +118,4 @@ progress of our implementation </p>
 <br>
 
 <p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
-popped here : </p>
-
+popped here :) </p>
