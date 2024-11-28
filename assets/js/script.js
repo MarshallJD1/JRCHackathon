@@ -33,7 +33,6 @@ function createBricks() {
 }
 
 // Reset the ball and paddle position
-// Reset the ball and paddle position
 function resetBallAndPaddle() {
   const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
   const paddleRect = paddle.getBoundingClientRect();
@@ -46,21 +45,26 @@ function resetBallAndPaddle() {
   // Recalculate paddle's position after resetting
   const updatedPaddleRect = paddle.getBoundingClientRect();
 
-  // Position the ball just above the paddle, centered horizontally
+  // Position the ball slightly above the paddle (adjust y position to ensure it's above)
   ballPosition.x = updatedPaddleRect.left + (updatedPaddleRect.width / 2) - (ballDiameter / 2);
-  ballPosition.y = updatedPaddleRect.top - gameBounds.top - ballDiameter; // Corrected calculation
+  ballPosition.y = updatedPaddleRect.top - gameBounds.top - ballDiameter - 5; // Ball starts just above the paddle
+
+  // Ensure the ball is positioned within the game viewport (not below the screen)
+  if (ballPosition.y < 0) {
+    ballPosition.y = 0; // Prevent the ball from being above the viewport
+  }
 
   ball.style.left = `${ballPosition.x}px`;
   ball.style.top = `${ballPosition.y}px`;
 
   ballSpeed = { x: 0, y: 0 };
 
-  console.log("Ball Position:", ballPosition);
+  // Debugging: Ensure ball is above the paddle
+  console.log("Ball Position after reset:", ballPosition);
   console.log("Paddle Position:", updatedPaddleRect.left);
 }
 
-
-// Function to set initial ball direction
+// Function to set initial ball direction (random vertical direction)
 function setInitialBallDirection() {
   const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
   ballSpeed = { x: 2 * Math.cos(angle), y: -2 * Math.sin(angle) }; // Ball goes upwards
@@ -73,7 +77,8 @@ function resetGame() {
   scoreDisplay.textContent = `Score: ${score}`;
   livesDisplay.textContent = `Lives: ${lives}`;
   createBricks();
-  resetBallAndPaddle();
+  resetBallAndPaddle(); // Reset ball and paddle positions
+  // Ball speed is 0 initially, set it only when the game starts
 }
 
 // Ball movement and collision detection
@@ -114,9 +119,9 @@ function moveBall() {
     }
   });
 
-  // Lose condition
+  // Lose condition (ball hits bottom of viewport)
   const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
-  if (ballPosition.y >= gameBounds.height) {
+  if (ballPosition.y >= gameBounds.height - ball.offsetHeight) { // Ball hits bottom of the viewport
     lives--;
     livesDisplay.textContent = `Lives: ${lives}`;
     resetBallAndPaddle();
@@ -144,8 +149,8 @@ function gameLoop() {
 startButton.addEventListener("click", () => {
   if (!isGameRunning) {
     isGameRunning = true;
-    setInitialBallDirection();
-    gameLoop();
+    setInitialBallDirection(); // Set ball's initial direction when start button is clicked
+    gameLoop(); // Start the game loop after setting the direction
   }
 });
 
