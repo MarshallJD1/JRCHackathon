@@ -13,26 +13,26 @@
     --highlight-color-light: #e3d245; /* yellow */
 
     /* background color */
-    --background-color: #f9f5ef; /* white (change to black) */
+    --background-color: #040303; /* black */
     
     /* game elements */
     /* brick color */
-    --brick-a: #a13d3b; /* red */
-    --brick-b: #6c8c50; /* green */
-    --brick-c: #8a8fc4; /* blue-light */
+    --brick-red: #a13d3b; /* red */
+    --brick-green: #6c8c50; /* green */
+    --brick-blue-light: #8a8fc4; /* blue-light */
+    --brick-yellow: #e3d245; /* yellow */
+
     /* ball color */
-    --ball: #e3d245; /* yellow */
+    --ball: #a13d3b; /* red */
     /* paddle color */
     --paddle: #9a407e /* violet */
-
-    
 }
 
 /* styles.css */
 body {
-  font-family: , sans-serif;
+  font-family: "Geo", sans-serif;
   background-color: #222;
-  color: white;
+  color: var(--primary-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,11 +40,8 @@ body {
   height: 100vh;
 }
 
-/* Colours the modal content in #222 */
-
-.modal-content {
-  background-color: #222;
-  color: white;
+h1 {
+  text-transform: uppercase;
 }
 
 #game-container {
@@ -58,7 +55,7 @@ body {
   position: relative;
   width: 600px;
   height: 400px;
-  background-color: black;
+  background-color: var(--background-color);
   border: 2px solid white;
   overflow: hidden; /* Ensure only what's in the viewport is visible */
 }
@@ -77,7 +74,7 @@ body {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: red;
+  background-color: var(--ball);
   border-radius: 50%;
 }
 
@@ -92,23 +89,23 @@ body {
 .brick {
   width: 50px;
   height: 20px;
-  background-color: blue;
+  background-color: var(--brick-blue-light);
 }
 
 .red-brick {
-  background-color: red;
+  background-color: var(--brick-red);
 }
 
 .blue-brick {
-  background-color: blue;
+  background-color: var(--brick-blue-light);
 }
 
 .green-brick {
-  background-color: green;
+  background-color: var(--brick-green);
 }
 
 .yellow-brick {
-  background-color: yellow;
+  background-color: var(--brick-yellow);
 }
 
 #info {
