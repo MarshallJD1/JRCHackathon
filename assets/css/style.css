@@ -7,13 +7,25 @@
     --primary-font: "Geo", sans-serif;
     --secondary-font: sans-serif;
     /* font color */
-    --primary-color: #3a2620; /* dark brown */
-    --secondary-color: #aa9581; /* light brown */
-    --highlight-color: #416a8e; /* blue */
-    --highlight-color-light: #7a9fc2; /* light blue */
+    --primary-color: #f9f5ef; /* white */
+    --secondary-color: #8a8fc4; /* blue-light */
+    --highlight-color: #d88038; /* orange */
+    --highlight-color-light: #e3d245; /* yellow */
 
     /* background color */
-    --background-color: #670da3;
+    --background-color: #f9f5ef; /* white (change to black) */
+    
+    /* game elements */
+    /* brick color */
+    --brick-a: #a13d3b; /* red */
+    --brick-b: #6c8c50; /* green */
+    --brick-c: #8a8fc4; /* blue-light */
+    /* ball color */
+    --ball: #e3d245; /* yellow */
+    /* paddle color */
+    --paddle: #9a407e /* violet */
+
+    
 }
 
 body {
@@ -25,4 +37,21 @@ body {
 h1 {
     font-family: var(--primary-font);
     color: var(--secondary-color);
+}
+
+h1,
+h2 {
+    text-transform: uppercase;
+}
+
+.brick {
+    background: var(--brick-a);
+}
+
+.ball {
+    background: var(--ball);
+}
+
+.paddle {
+    background: var(--paddle);
 }
