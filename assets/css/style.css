@@ -65,6 +65,18 @@ h1 {
   overflow: hidden; /* Ensure only what's in the viewport is visible */
 }
 
+/* Style for the "tap to begin" message */
+.tap-to-begin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  display: none; /* Hide by default */
+}
+
 #paddle {
   position: absolute;
   bottom: 10px;
@@ -188,5 +200,12 @@ h1 {
   .brick {
     width: 25px;
     height: 10px;
+  }
+}
+
+/* Show the "tap to begin" message on touch devices */
+@media (pointer: coarse) {
+  .tap-to-begin {
+    display: block;
   }
 }

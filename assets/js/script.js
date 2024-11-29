@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const livesDisplay = document.getElementById("lives");
   const startButton = document.getElementById("start-game");
   const gameViewport = document.getElementById("game-viewport");
+  const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
@@ -167,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
       isGameRunning = true;
       startButton.disabled = true; // Disable the start button
+      tapToBegin.style.display = 'none'; // Hide the "tap to begin" message
       setInitialBallDirection();
       gameLoop();
     }
