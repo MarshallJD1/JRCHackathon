@@ -162,8 +162,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Start game event
+  
   gameViewport.addEventListener("click", () => {
+    if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
+      isGameRunning = true;
+      startButton.disabled = true; // Disable the start button
+      setInitialBallDirection();
+      gameLoop();
+    }
+  });
+
+  startButton.addEventListener("click", () => {
     if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
       isGameRunning = true;
       startButton.disabled = true; // Disable the start button
