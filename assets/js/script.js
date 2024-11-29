@@ -188,8 +188,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
   
+    const gameBounds = gameViewport.getBoundingClientRect();
+    const ballDiameter = ball.offsetWidth;
+  
     // Wall collision
-    if (ballPosition.x <= 0 || ballPosition.x >= 590) ballSpeed.x *= -1;
+    if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) ballSpeed.x *= -1;
     if (ballPosition.y <= 0) ballSpeed.y *= -1;
   
     // Paddle collision
@@ -255,8 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Lose condition (ball hits bottom of viewport)
-    const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
-    if (ballPosition.y >= gameBounds.height - ball.offsetHeight) { // Ball hits bottom of the viewport
+    if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
       livesDisplay.textContent = `Lives: ${lives}`;
       if (lives > 0) {
