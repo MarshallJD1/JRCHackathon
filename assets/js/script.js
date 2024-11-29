@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById("start-game");
   const gameViewport = document.getElementById("game-viewport");
   const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
+  const livesRemaining = document.getElementById("lives-remaining"); // New element
 
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
@@ -289,6 +290,11 @@ document.addEventListener("DOMContentLoaded", () => {
       livesDisplay.textContent = `Lives: ${lives}`;
       fail.currentTime = 0; // Reset audio playback position
       fail.play(); // Play sound for losing a life
+      livesRemaining.textContent = `You have ${lives} lives remaining`; // Update lives remaining message
+      livesRemaining.style.display = 'block'; // Show the message
+      setTimeout(() => {
+        livesRemaining.style.display = 'none'; // Hide the message after 2 seconds
+      }, 2000);
       if (lives > 0) {
         resetBallAndPaddle();
         startButton.disabled = false; // Re-enable the start button

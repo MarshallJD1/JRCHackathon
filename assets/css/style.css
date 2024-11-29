@@ -65,7 +65,7 @@ h1 {
   overflow: hidden; /* Ensure only what's in the viewport is visible */
 }
 
-/* Style for the "tap to begin" message */
+/* HUD messages */
 .tap-to-begin {
   position: absolute;
   top: 50%;
@@ -77,6 +77,18 @@ h1 {
   display: none; /* Hide by default */
 }
 
+.lives-remaining {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  display: none; /* Hide by default */
+}
+
+/* game elements */
 #paddle {
   position: absolute;
   bottom: 10px;
