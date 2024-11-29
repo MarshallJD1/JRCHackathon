@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0; // Initial score
   let lives = 3; // Initial number of lives
   let isGameRunning = false; // Game state
+  let isCooldown = false; // Cooldown flag
 
   // Function to create bricks
   function createBricks() {
@@ -129,20 +130,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Brick collision
-    const bricks = document.querySelectorAll(".brick");
-    for (const brick of bricks) {
-      const rect = brick.getBoundingClientRect();
-      if (
-        ballRect.left < rect.right &&
-        ballRect.right > rect.left &&
-        ballRect.top < rect.bottom &&
-        ballRect.bottom > rect.top
-      ) {
-        ballSpeed.y *= -1;
-        brick.remove();
-        score++;
-        scoreDisplay.textContent = `Score: ${score}`;
-        break; // Exit the loop after hitting one brick
+    if (!isCooldown) {
+      const bricks = document.querySelectorAll(".brick");
+      for (const brick of bricks) {
+        const rect = brick.getBoundingClientRect();
+        if (
+          ballRect.left < rect.right &&
+          ballRect.right > rect.left &&
+          ballRect.top < rect.bottom &&
+          ballRect.bottom > rect.top
+        ) {
+          ballSpeed.y *= -1;
+          brick.remove();
+          score++;
+          scoreDisplay.textContent = `Score: ${score}`;
+          isCooldown = true;
+          setTimeout(() => {
+            isCooldown = false;
+          }, 500); // 500 millisecond cooldown
+          break; // Exit the loop after hitting one brick
+        }
       }
     }
 
