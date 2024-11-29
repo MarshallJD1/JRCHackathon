@@ -101,7 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to set initial ball direction
   function setInitialBallDirection() {
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
-    ballSpeed = { x: 2 * Math.cos(angle), y: -2 * Math.sin(angle) }; // Ball goes upwards
+    const initialSpeed = 6; // Increase the initial speed
+    ballSpeed = { x: initialSpeed * Math.cos(angle), y: -initialSpeed * Math.sin(angle) }; // Ball goes upwards
   }
 
   // Function to reset the game
