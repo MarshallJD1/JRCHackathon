@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById("start-game");
 
   // Initialize game variables
+  const initialSpeed = 16; // Initial speed
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
   let paddlePosition = 250; // Initial position of the paddle
@@ -101,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to set initial ball direction
   function setInitialBallDirection() {
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
-    const initialSpeed = 6; // Increase the initial speed
     ballSpeed = { x: initialSpeed * Math.cos(angle), y: -initialSpeed * Math.sin(angle) }; // Ball goes upwards
   }
 
