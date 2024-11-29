@@ -133,6 +133,16 @@ h1 {
   text-align: center;
 }
 
+/* touch devices CSS override */
+/* Hide the start button on touch devices */
+@media (pointer: coarse) {
+  #start-game {
+    display: none;
+  }
+}
+
+/* general media rules */
+
 @media (max-width: 768px) {
   #game-viewport {
     width: 100%;
