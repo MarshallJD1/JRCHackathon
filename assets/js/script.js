@@ -12,13 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize game variables
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
-  let paddlePosition = 250; // Initial position of the paddlegit 
+  let paddlePosition = 250; // Initial position of the paddle
   let score = 0; // Initial score
   let lives = 3; // Initial number of lives
   let isGameRunning = false; // Game state
   let isCooldown = false; // Cooldown flag
+  let currentRound = 1; // Current round
 
-  // Function to create bricks
+  // Function to create bricks for round 1
   function createBricks() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
     for (let i = 0; i < 20; i++) {
@@ -32,6 +33,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
       bricksContainer.appendChild(brick);
     }
+  }
+
+  // Function to create bricks for round 2
+  function createBricksRound2() {
+    bricksContainer.innerHTML = ""; // Clear existing bricks
+    for (let i = 0; i < 30; i++) { // Increase the number of bricks
+      const brick = document.createElement("div");
+      brick.classList.add("brick");
+
+      if (i < 10) brick.classList.add("red-brick");
+      else if (i < 20) brick.classList.add("blue-brick");
+      else brick.classList.add("green-brick");
+
+      bricksContainer.appendChild(brick);
+    }
+  }
+
+  // Function to create bricks for round 3
+  function createBricksRound3() {
+    bricksContainer.innerHTML = ""; // Clear existing bricks
+    for (let i = 0; i < 40; i++) { // Increase the number of bricks
+      const brick = document.createElement("div");
+      brick.classList.add("brick");
+
+      if (i < 10) brick.classList.add("red-brick");
+      else if (i < 20) brick.classList.add("blue-brick");
+      else if (i < 30) brick.classList.add("green-brick");
+      else brick.classList.add("yellow-brick");
+
+      bricksContainer.appendChild(brick);
+    }
+  }
+
+  // Function to check if there are no bricks left
+  function checkBricks() {
+    const bricks = document.querySelectorAll(".brick");
+    return bricks.length === 0;
   }
 
   // Reset the ball and paddle position
@@ -70,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetGame() {
     lives = 3;
     score = 0;
+    currentRound = 1;
     scoreDisplay.textContent = `Score: ${score}`;
     livesDisplay.textContent = `Lives: ${lives}`;
     createBricks();
@@ -126,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ballSpeed.y > 0 // Ensure the ball is moving downwards
     ) {
       ballSpeed.y *= -1;
-
     }
 
     // Brick collision
@@ -153,6 +191,22 @@ document.addEventListener("DOMContentLoaded", () => {
           break; // Exit the loop after hitting one brick
         }
       }
+    }
+
+    // Check if there are no bricks left
+    if (checkBricks()) {
+      alert("Round Cleared!");
+      currentRound++;
+      if (currentRound === 2) {
+        createBricksRound2();
+      } else if (currentRound === 3) {
+        createBricksRound3();
+      } else {
+        alert("You have completed all rounds!");
+        isGameRunning = false;
+        resetGame();
+      }
+      resetBallAndPaddle();
     }
 
     // Lose condition (ball hits bottom of viewport)
