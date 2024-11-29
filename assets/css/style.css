@@ -124,6 +124,10 @@ h1 {
   background-color: var(--brick-yellow);
 }
 
+.hit {
+  visibility: hidden;
+}
+
 #info {
   margin-top: 10px;
   text-align: center;
