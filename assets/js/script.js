@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
   const beepB = document.getElementById("beep-b");
+  const fail = document.getElementById("fail"); // New audio element
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
@@ -286,6 +287,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
       livesDisplay.textContent = `Lives: ${lives}`;
+      fail.currentTime = 0; // Reset audio playback position
+      fail.play(); // Play sound for losing a life
       if (lives > 0) {
         resetBallAndPaddle();
         startButton.disabled = false; // Re-enable the start button
