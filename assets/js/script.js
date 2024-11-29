@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById("start-game");
 
   // Initialize game variables
-  const initialSpeed = 16; // Initial speed
+  const initialSpeed = 8; // Initial speed
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
   let paddlePosition = 250; // Initial position of the paddle
