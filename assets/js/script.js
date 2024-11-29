@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ballSpeed.y > 0 // Ensure the ball is moving downwards
     ) {
       ballSpeed.y *= -1;
-      
+
     }
 
     // Brick collision
@@ -141,7 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
           ballRect.bottom > rect.top
         ) {
           ballSpeed.y *= -1;
-          brick.remove();
+          const emptyDiv = document.createElement("div");
+          emptyDiv.classList.add("placeholder"); // Add a class for styling if needed
+          brick.replaceWith(emptyDiv);
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
           isCooldown = true;
