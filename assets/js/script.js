@@ -199,7 +199,16 @@ document.addEventListener("DOMContentLoaded", () => {
       ballRect.right > paddleRect.left &&
       ballSpeed.y > 0 // Ensure the ball is moving downwards
     ) {
-      ballSpeed.y *= -1;
+      // Calculate the hit position relative to the center of the paddle
+      const hitPosition = (ballRect.left + ballRect.width / 2) - (paddleRect.left + paddleRect.width / 2);
+      const maxBounceAngle = Math.PI / 3; // 60 degrees
+      const normalizedHitPosition = hitPosition / (paddleRect.width / 2);
+      const bounceAngle = normalizedHitPosition * maxBounceAngle;
+  
+      // Calculate new ball speed based on the bounce angle
+      const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
+      ballSpeed.x = speed * Math.sin(bounceAngle);
+      ballSpeed.y = -speed * Math.cos(bounceAngle);
     }
   
     // Brick collision
