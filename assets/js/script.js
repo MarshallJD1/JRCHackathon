@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreDisplay = document.getElementById("score");
   const livesDisplay = document.getElementById("lives");
   const startButton = document.getElementById("start-game");
+  const gameViewport = document.getElementById("game-viewport");
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
@@ -89,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
 
+    // Reset ball speed
     ballSpeed = { x: 0, y: 0 };
 
     // Re-enable the start button
@@ -102,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to set initial ball direction
   function setInitialBallDirection() {
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
+    const initialSpeed = 6; // Increase the initial speed
     ballSpeed = { x: initialSpeed * Math.cos(angle), y: -initialSpeed * Math.sin(angle) }; // Ball goes upwards
   }
 
@@ -116,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resetBallAndPaddle();
   }
 
-  // Event listener to move the paddle
+  // Event listener to move the paddle with mouse
   document.addEventListener("mousemove", (e) => {
     const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
     const paddleWidth = paddle.offsetWidth;
@@ -137,8 +140,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Event listener to move the paddle with touch
+  gameViewport.addEventListener("touchmove", (e) => {
+    const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
+    const paddleWidth = paddle.offsetWidth;
+
+    // Calculate new paddle position
+    let touch = e.touches[0];
+    let newPaddleX = touch.clientX - gameBounds.left - paddleWidth / 2;
+
+    // Constrain paddle within the game bounds
+    newPaddleX = Math.max(0, Math.min(newPaddleX, gameBounds.width - paddleWidth));
+
+    // Update paddle position
+    paddle.style.left = `${newPaddleX}px`;
+
+    // Update ball position if the ball is not moving
+    if (ballSpeed.x === 0 && ballSpeed.y === 0) {
+      ballPosition.x = newPaddleX + paddleWidth / 2 - ball.offsetWidth / 2;
+      ball.style.left = `${ballPosition.x}px`;
+    }
+  });
+
   // Start game event
-  startButton.addEventListener("click", () => {
+  gameViewport.addEventListener("click", () => {
     if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
       isGameRunning = true;
       startButton.disabled = true; // Disable the start button
@@ -151,11 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function moveBall() {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
-
+  
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= 590) ballSpeed.x *= -1;
     if (ballPosition.y <= 0) ballSpeed.y *= -1;
-
+  
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
     const ballRect = ball.getBoundingClientRect();
@@ -167,11 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       ballSpeed.y *= -1;
     }
-
+  
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
       for (const brick of bricks) {
+        if (brick.classList.contains("hit")) continue; // Skip hidden bricks
+  
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -180,9 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ballRect.bottom > rect.top
         ) {
           ballSpeed.y *= -1;
-          const emptyDiv = document.createElement("div");
-          emptyDiv.classList.add("placeholder"); // Add a class for styling if needed
-          brick.replaceWith(emptyDiv);
+          brick.classList.add("hit"); // Add 'hit' class to hide the brick
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
           isCooldown = true;
@@ -193,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
-
+  
     // Check if there are no bricks left
     if (checkBricks()) {
       alert("Round Cleared!");
@@ -207,9 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
         isGameRunning = false;
         resetGame();
       }
-      resetBallAndPaddle();
     }
-
+  
     // Lose condition (ball hits bottom of viewport)
     const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
     if (ballPosition.y >= gameBounds.height - ball.offsetHeight) { // Ball hits bottom of the viewport
@@ -224,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-
+  
     // Update ball position
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
