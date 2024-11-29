@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById("start-game");
   const gameViewport = document.getElementById("game-viewport");
   const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
+  const livesRemaining = document.getElementById("lives-remaining"); // New element
+
+  // Get references to audio elements
+  const beepA = document.getElementById("beep-a");
+  const beepB = document.getElementById("beep-b");
+  const fail = document.getElementById("fail"); // New audio element
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
@@ -25,16 +31,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to create bricks for round 1
   function createBricks() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    for (let i = 0; i < 20; i++) {
-      const brick = document.createElement("div");
-      brick.classList.add("brick");
+    const numRows = 4; // Number of rows of bricks
+    const numCols = 5; // Number of columns of bricks
+    const brickHeight = gameViewport.clientHeight / (numRows * 10); // Height of each brick proportional to screen height
 
-      if (i < 5) brick.classList.add("red-brick");
-      else if (i < 10) brick.classList.add("blue-brick");
-      else if (i < 15) brick.classList.add("green-brick");
-      else brick.classList.add("yellow-brick");
+    for (let row = 0; row < numRows; row++) {
+      for (let col = 0; col < numCols; col++) {
+        const brick = document.createElement("div");
+        brick.classList.add("brick");
+        brick.style.height = `${brickHeight}px`;
 
-      bricksContainer.appendChild(brick);
+        // Assign different colors to each row
+        if (row === 0) brick.classList.add("red-brick");
+        else if (row === 1) brick.classList.add("blue-brick");
+        else if (row === 2) brick.classList.add("green-brick");
+        else brick.classList.add("yellow-brick");
+
+        bricksContainer.appendChild(brick);
+      }
     }
   }
 
@@ -188,9 +202,20 @@ document.addEventListener("DOMContentLoaded", () => {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
   
+    const gameBounds = gameViewport.getBoundingClientRect();
+    const ballDiameter = ball.offsetWidth;
+  
     // Wall collision
-    if (ballPosition.x <= 0 || ballPosition.x >= 590) ballSpeed.x *= -1;
-    if (ballPosition.y <= 0) ballSpeed.y *= -1;
+    if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
+      ballSpeed.x *= -1;
+      beepA.currentTime = 0; // Reset audio playback position
+      beepA.play(); // Play sound for wall collision
+    }
+    if (ballPosition.y <= 0) {
+      ballSpeed.y *= -1;
+      beepA.currentTime = 0; // Reset audio playback position
+      beepA.play(); // Play sound for wall collision
+    }
   
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
@@ -211,6 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
+  
+      beepB.currentTime = 0; // Reset audio playback position
+      beepB.play(); // Play sound for paddle collision
     }
   
     // Brick collision
@@ -234,6 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             isCooldown = false;
           }, 500); // 500 millisecond cooldown
+          beepA.currentTime = 0; // Reset audio playback position
+          beepA.play(); // Play sound for brick collision
           break; // Exit the loop after hitting one brick
         }
       }
@@ -255,10 +285,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Lose condition (ball hits bottom of viewport)
-    const gameBounds = document.getElementById("game-viewport").getBoundingClientRect();
-    if (ballPosition.y >= gameBounds.height - ball.offsetHeight) { // Ball hits bottom of the viewport
+    if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
       livesDisplay.textContent = `Lives: ${lives}`;
+      fail.currentTime = 0; // Reset audio playback position
+      fail.play(); // Play sound for losing a life
+      livesRemaining.textContent = `You have ${lives} lives remaining`; // Update lives remaining message
+      livesRemaining.style.display = 'block'; // Show the message
+      setTimeout(() => {
+        livesRemaining.style.display = 'none'; // Hide the message after 2 seconds
+      }, 2000);
       if (lives > 0) {
         resetBallAndPaddle();
         startButton.disabled = false; // Re-enable the start button
