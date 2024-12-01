@@ -161,23 +161,85 @@ h1 {
 
 /* general media rules */
 
-@media (min-width: 768px) {  
-  #game-container {
-    margin-top: 20px;
-    height: 80vh;
-  }
-  
+@media (max-width: 768px) {
   #game-viewport {
-    width: 768px;
+    width: 100%;
+    height: 300px;
   }
 
   #paddle {
-    width: 150px;
+    width: 80px;
+  }
+
+  .brick {
+    width: 40px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  #game-viewport {
+    width: 100%;
+    height: 250px;
+  }
+
+  #paddle {
+    width: 60px;
+  }
+
+  .brick {
+    width: 30px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  #game-viewport {
+    width: 100%;
+    height: 200px;
+  }
+
+  #paddle {
+    width: 50px;
   }
 
   .brick {
     width: 25px;
     height: 10px;
+  }
+}
+
+/* Landscape orientation */
+@media (orientation: landscape) {
+  #game-viewport {
+    width: 100%;
+    height: 100vh;
+  }
+
+  #paddle {
+    width: 10%;
+  }
+
+  .brick {
+    width: 5%;
+    height: 2%;
+  }
+}
+
+/* Portrait orientation */
+@media (orientation: portrait) {
+  #game-viewport {
+    width: 100%;
+    height: 80vh;
+  }
+
+  #paddle {
+    width: 15%;
+  }
+
+  .brick {
+    width: 7%;
+    height: 3%;
   }
 }
 
