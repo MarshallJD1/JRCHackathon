@@ -80,6 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (i < 32) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
 
+      if (Math.random() < 0.1) { // 10% chance to be a power-up brick
+        brick.classList.add("power-up-brick");
+        brick.style.backgroundColor = "purple"; // Change styling for power-up bricks
+      }
+
       bricksContainer.appendChild(brick);
     }
   }
@@ -98,6 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (i < 64) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
 
+      if (Math.random() < 0.1) { // 10% chance to be a power-up brick
+        brick.classList.add("power-up-brick");
+        brick.style.backgroundColor = "purple"; // Change styling for power-up bricks
+      }
+
       bricksContainer.appendChild(brick);
     }
   }
@@ -108,8 +118,36 @@ document.addEventListener("DOMContentLoaded", () => {
     return bricks.length === 0;
   }
 
-  function handlePowerUp() {
-    // Example power-up: Increase paddle size
+  // Function to handle power-up effects
+function handlePowerUp() {
+  const powerUps = ["increasePaddleSize", "increaseBallSize"];
+  const selectedPowerUp = powerUps[Math.floor(Math.random() * powerUps.length)];
+
+  switch (selectedPowerUp) {
+    case "increasePaddleSize":
+      increasePaddleSize();
+      break;
+    case "increaseBallSize":
+      increaseBallSize();
+      break;
+    default:
+      break;
+  }
+}
+
+// Power-up: Increase ball size
+function increaseBallSize() {
+  const originalBallSize = ball.offsetWidth;
+  ball.style.width = `${originalBallSize + 10}px`;
+  ball.style.height = `${originalBallSize + 10}px`;
+  // Set a timer to revert the power-up effect after 10 seconds
+  setTimeout(() => {
+    ball.style.width = `${originalBallSize}px`;
+    ball.style.height = `${originalBallSize}px`;
+  }, 10000); // 10 seconds
+}
+
+  function increasePaddleSize() {
     const originalPaddleWidth = paddle.offsetWidth;
     paddle.style.width = `${originalPaddleWidth + 20}px`;
     // Set a timer to revert the power-up effect after 10 seconds
