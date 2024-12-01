@@ -58,22 +58,46 @@ h1 {
   text-transform: uppercase;
 }
 
+/* Ensure the game container and viewport take up a consistent percentage of the screen */
 #game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
   width: 100vw;
-  height: 80vh;
+  height: 100vh;
 }
 
 #game-viewport {
   position: relative;
-  width: 100vw;
-  height: 80vh;
+  width: 90%;
+  height: 80%;
   background-color: var(--background-color);
   border: 2px solid white;
-  overflow: hidden; /* Ensure only what's in the viewport is visible */
+  overflow: hidden;
+}
+
+/* Ensure the paddle and ball scale proportionally */
+#paddle {
+  position: absolute;
+  bottom: 10px;
+  width: 10%;
+  height: 2%;
+  background-color: white;
+}
+
+#ball {
+  position: absolute;
+  width: 1%;
+  height: 1%;
+  background-color: var(--ball);
+  border-radius: 50%;
+}
+
+/* Ensure bricks scale proportionally */
+.brick {
+  width: 10%;
+  height: 5%;
+  margin: 0.5%;
 }
 
 /* HUD messages */
@@ -181,6 +205,47 @@ h1 {
   margin-bottom: 20px; /* Space below the buttons */
 }
 
+.header-container {
+  display: flex;
+  justify-content: center; /* Center the header */
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--background-color);
+  position: relative; /* Ensure the navbar-toggler is positioned relative to the header */
+}
+
+.header-container h1 {
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.navbar {
+  margin: 0;
+  position: absolute; /* Position the navbar absolutely within the header */
+  top: 0;
+  right: 10px; /* Adjust the right margin to position the button */
+  z-index: 1000;
+  background-color: black; /* Set background color to black */
+  padding: 0; /* Remove padding */
+}
+
+.navbar-toggler {
+  margin-left: 10px;
+  padding: 5px 10px; /* Adjust padding to make the button smaller */
+   /* Make sure is closed by default*/ 
+   
+}
+
+.navbar-collapse {
+  position: absolute;
+  top: 50px; /* Adjust this value to position the menu below the header */
+  left: 0;
+  width: 100%;
+  background-color: black; /* Set background color to black */
+  z-index: 999; /* Ensure it is above other elements */
+}
+
 /* touch devices CSS override */
 /* Hide the start button on touch devices */
 @media (pointer: coarse) {
@@ -194,73 +259,7 @@ h1 {
 @media (max-width: 768px) {
   #game-viewport {
     width: 100%;
-    height: 300px;
-  }
-
-  #paddle {
-    width: 80px;
-  }
-
-  .brick {
-    width: 40px;
-    height: 15px;
-  }
-}
-
-@media (max-width: 576px) {
-  #game-viewport {
-    width: 100%;
-    height: 250px;
-  }
-
-  #paddle {
-    width: 60px;
-  }
-
-  .brick {
-    width: 30px;
-    height: 10px;
-  }
-}
-
-@media (max-width: 450px) {
-  #game-viewport {
-    width: 100%;
-    height: 200px;
-  }
-
-  #paddle {
-    width: 50px;
-  }
-
-  .brick {
-    width: 25px;
-    height: 10px;
-  }
-}
-
-/* Landscape orientation */
-@media (orientation: landscape) {
-  #game-viewport {
-    width: 100%;
-    height: 100vh;
-  }
-
-  #paddle {
-    width: 10%;
-  }
-
-  .brick {
-    width: 5%;
-    height: 2%;
-  }
-}
-
-/* Portrait orientation */
-@media (orientation: portrait) {
-  #game-viewport {
-    width: 100%;
-    height: 80vh;
+    height: 80%;
   }
 
   #paddle {
@@ -268,8 +267,48 @@ h1 {
   }
 
   .brick {
-    width: 7%;
-    height: 3%;
+    width: 12%;
+    height: 6%;
+  }
+
+  .button-container {
+    display: none;
+  }
+
+  .navbar {
+    display: block;
+  }
+
+  .navbar-collapse {
+    top: 40px; /* Adjust this value to position the menu below the header */
+    display: none; /* Hide the menu by default */
+  }
+
+  .header-container {
+    justify-content: center; /* Center the header on smaller devices */
+  }
+}
+
+@media (max-width: 576px) {
+  #game-viewport {
+    width: 100%;
+    height: 80%;
+  }
+
+  #paddle {
+    width: 20%;
+  }
+
+  .brick {
+    width: 15%;
+    height: 7%;
+  }
+}
+
+/* Hide burger menu on larger devices */
+@media (min-width: 769px) {
+  .navbar {
+    display: none;
   }
 }
 

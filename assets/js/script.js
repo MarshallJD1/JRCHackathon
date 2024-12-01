@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const highScoresModalElement = document.getElementById('highScoresModal');
   const highScoresModal = new bootstrap.Modal(highScoresModalElement);
   const showHighScoresButton = document.getElementById('show-high-scores');
+  const burgerMenu = new bootstrap.Collapse(document.getElementById('navbarNav'));
+  
 
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
