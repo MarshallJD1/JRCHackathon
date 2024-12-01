@@ -28,17 +28,25 @@ document.addEventListener("DOMContentLoaded", () => {
   let isCooldown = false; // Cooldown flag
   let currentRound = 1; // Current round
 
-  // Function to create bricks for round 1
+  // Brick variables
+  const brickRowCount = 4; // Number of rows of bricks
+  const brickColumnCount = 8; // Number of columns of bricks
+  const brickPadding = 5; // Padding between bricks
+  const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
+  const brickHeight = 20; // Brick height
+
+  // Function to create bricks
   function createBricks() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    const numRows = 4; // Number of rows of bricks
-    const numCols = 5; // Number of columns of bricks
-    const brickHeight = gameViewport.clientHeight / (numRows * 10); // Height of each brick proportional to screen height
+    bricksContainer.style.display = "grid";
+    bricksContainer.style.gridTemplateColumns = `repeat(${brickColumnCount}, ${brickWidth}px)`;
+    bricksContainer.style.gridGap = `${brickPadding}px`;
 
-    for (let row = 0; row < numRows; row++) {
-      for (let col = 0; col < numCols; col++) {
+    for (let row = 0; row < brickRowCount; row++) {
+      for (let col = 0; col < brickColumnCount; col++) {
         const brick = document.createElement("div");
         brick.classList.add("brick");
+        brick.style.width = `${brickWidth}px`;
         brick.style.height = `${brickHeight}px`;
 
         // Assign different colors to each row
@@ -119,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to set initial ball direction
   function setInitialBallDirection() {
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
-    const initialSpeed = 6; // Increase the initial speed
     ballSpeed = { x: initialSpeed * Math.cos(angle), y: -initialSpeed * Math.sin(angle) }; // Ball goes upwards
   }
 
@@ -201,10 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function moveBall() {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
-  
+
     const gameBounds = gameViewport.getBoundingClientRect();
     const ballDiameter = ball.offsetWidth;
-  
+
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
@@ -216,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
       beepA.currentTime = 0; // Reset audio playback position
       beepA.play(); // Play sound for wall collision
     }
-  
+
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
     const ballRect = ball.getBoundingClientRect();
@@ -231,22 +238,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const maxBounceAngle = Math.PI / 3; // 60 degrees
       const normalizedHitPosition = hitPosition / (paddleRect.width / 2);
       const bounceAngle = normalizedHitPosition * maxBounceAngle;
-  
+
       // Calculate new ball speed based on the bounce angle
       const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
-  
+
       beepB.currentTime = 0; // Reset audio playback position
       beepB.play(); // Play sound for paddle collision
     }
-  
+
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
-  
+
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -258,17 +265,12 @@ document.addEventListener("DOMContentLoaded", () => {
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
-          isCooldown = true;
-          setTimeout(() => {
-            isCooldown = false;
-          }, 500); // 500 millisecond cooldown
           beepA.currentTime = 0; // Reset audio playback position
           beepA.play(); // Play sound for brick collision
-          break; // Exit the loop after hitting one brick
         }
       }
     }
-  
+
     // Check if there are no bricks left
     if (checkBricks()) {
       alert("Round Cleared!");
@@ -283,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-  
+
     // Lose condition (ball hits bottom of viewport)
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
