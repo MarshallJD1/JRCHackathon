@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     livesDisplay.textContent = `Lives: ${lives}`;
     createBricks();
     resetBallAndPaddle();
+    isGameRunning = false; // Ensure game is not running after reset
   }
 
   // Event listener to move the paddle with mouse
@@ -184,7 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Start game event
   gameViewport.addEventListener("click", () => {
     if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
       isGameRunning = true;
@@ -299,6 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
       if (lives > 0) {
         resetBallAndPaddle();
+        isGameRunning = false; // Ensure game is not running after losing a life
         startButton.disabled = false; // Re-enable the start button
       } else {
         alert("Game Over!");
@@ -306,15 +307,19 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-
+   
     // Update ball position
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
+
+    if (ballSpeed.x === 0 && ballSpeed.y === 0) {
+      setInitialBallDirection(); // Set speed again if needed
+    }
   }
 
   // Game loop
   function gameLoop() {
-    if (isGameRunning || lives > 0 || ballSpeed.x !== 0 || ballSpeed.y !== 0) {
+    if (isGameRunning) {
       moveBall();
       requestAnimationFrame(gameLoop);
     }
