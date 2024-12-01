@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fail = document.getElementById("fail"); // New audio element
 
   // Initialize game variables
-  const initialSpeed = 10; // Initial speed
+  const initialSpeed = 8; // Initial speed
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
   let paddlePosition = 250; // Initial position of the paddle
@@ -30,10 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Brick variables
   const brickRowCount = 4; // Number of rows of bricks
-  const brickColumnCount = 20; // Number of columns of bricks
-  const brickPadding = 10; // Padding between bricks
-  const brickOffsetTop = 30; // Offset from the top of the viewport
-  const brickOffsetLeft = 30; // Offset from the left of the viewport
+  const brickColumnCount = 8; // Number of columns of bricks
+  const brickPadding = 5; // Padding between bricks
   const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
   const brickHeight = 20; // Brick height
 
@@ -253,7 +251,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
-      let collisionDetected = false;
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
 
@@ -268,16 +265,9 @@ document.addEventListener("DOMContentLoaded", () => {
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
-          collisionDetected = true;
           beepA.currentTime = 0; // Reset audio playback position
           beepA.play(); // Play sound for brick collision
         }
-      }
-      if (collisionDetected) {
-        isCooldown = true;
-        setTimeout(() => {
-          isCooldown = false;
-        }, 80); // 80 millisecond cooldown
       }
     }
 
