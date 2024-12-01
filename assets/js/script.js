@@ -304,10 +304,18 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-  
+   
     // Update ball position
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
+
+    if (ballSpeed.x === 0 && ballSpeed.y === 0) {
+      setInitialBallDirection(); // Set speed again if needed
+    
+    }
+  
+
+    
   }
 
   // Game loop
