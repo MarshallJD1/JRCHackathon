@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const beepA = document.getElementById("beep-a");
   const beepB = document.getElementById("beep-b");
   const fail = document.getElementById("fail"); // New audio element
+  const powerUp = document.getElementById("powerUp1"); // New audio element
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
@@ -119,33 +120,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Function to handle power-up effects
-function handlePowerUp() {
-  const powerUps = ["increasePaddleSize", "increaseBallSize"];
-  const selectedPowerUp = powerUps[Math.floor(Math.random() * powerUps.length)];
+  function handlePowerUp() {
+    const powerUps = ["increasePaddleSize", "increaseBallSize"];
+    const selectedPowerUp = powerUps[Math.floor(Math.random() * powerUps.length)];
 
-  switch (selectedPowerUp) {
-    case "increasePaddleSize":
-      increasePaddleSize();
-      break;
-    case "increaseBallSize":
-      increaseBallSize();
-      break;
-    default:
-      break;
+    switch (selectedPowerUp) {
+      case "increasePaddleSize":
+        increasePaddleSize();
+        break;
+      case "increaseBallSize":
+        increaseBallSize();
+        break;
+      case "increaseBallSpeed":
+        increaseBallSpeed();
+        break;
+      default:
+        break;
+    }
   }
-}
-
-// Power-up: Increase ball size
-function increaseBallSize() {
-  const originalBallSize = ball.offsetWidth;
-  ball.style.width = `${originalBallSize + 10}px`;
-  ball.style.height = `${originalBallSize + 10}px`;
-  // Set a timer to revert the power-up effect after 10 seconds
-  setTimeout(() => {
-    ball.style.width = `${originalBallSize}px`;
-    ball.style.height = `${originalBallSize}px`;
-  }, 10000); // 10 seconds
-}
+  // Power-up: Increase ball size
+  function increaseBallSize() {
+    const originalBallSize = ball.offsetWidth;
+    ball.style.width = `${originalBallSize + 10}px`;
+    ball.style.height = `${originalBallSize + 10}px`;
+    // Set a timer to revert the power-up effect after 10 seconds
+    setTimeout(() => {
+      ball.style.width = `${originalBallSize}px`;
+      ball.style.height = `${originalBallSize}px`;
+    }, 10000); // 10 seconds
+  }
 
   function increasePaddleSize() {
     const originalPaddleWidth = paddle.offsetWidth;
@@ -153,6 +156,18 @@ function increaseBallSize() {
     // Set a timer to revert the power-up effect after 10 seconds
     setTimeout(() => {
       paddle.style.width = `${originalPaddleWidth}px`;
+    }, 10000); // 10 seconds
+  }
+
+  // Power-up: Increase ball speed
+  function increaseBallSpeed() {
+    const originalBallSpeed = { ...ballSpeed };
+    ballSpeed.x *= 1.5;
+    ballSpeed.y *= 1.5;
+    // Set a timer to revert the power-up effect after 10 seconds
+    setTimeout(() => {
+      ballSpeed.x = originalBallSpeed.x;
+      ballSpeed.y = originalBallSpeed.y;
     }, 10000); // 10 seconds
   }
 
@@ -334,6 +349,10 @@ function increaseBallSize() {
 
           if (brick.classList.contains("power-up-brick")) {
             handlePowerUp();
+            powerUp.currentTime = 0; // Reset audio playback position
+            powerUp.play(); // Play sound for power-up brick
+
+
           }// Apply power-up effect
           break; // Exit the loop after hitting one brick
         }
