@@ -142,6 +142,10 @@ h1 {
   background-color: var(--brick-yellow);
 }
 
+.power-up-brick {
+  background-color: purple; /* Different color for power-up bricks */
+}
+
 .hit {
   visibility: hidden;
 }

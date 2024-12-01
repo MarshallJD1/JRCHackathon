@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add power-up bricks
         if (Math.random() < 0.1) { // 10% chance to be a power-up brick
           brick.classList.add("power-up-brick");
-          brick.style.backgroundColor = "purple"; // Change styling for power-up bricks
+          
         }
 
         bricksContainer.appendChild(brick);
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (Math.random() < 0.1) { // 10% chance to be a power-up brick
         brick.classList.add("power-up-brick");
-        brick.style.backgroundColor = "purple"; // Change styling for power-up bricks
+        
       }
 
       bricksContainer.appendChild(brick);
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (Math.random() < 0.1) { // 10% chance to be a power-up brick
         brick.classList.add("power-up-brick");
-        brick.style.backgroundColor = "purple"; // Change styling for power-up bricks
+        
       }
 
       bricksContainer.appendChild(brick);
@@ -203,8 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Power-up: Increase ball speed
   function increaseBallSpeed() {
     const originalBallSpeed = { ...ballSpeed };
-    ballSpeed.x *= 1.5;
-    ballSpeed.y *= 1.5;
+    ballSpeed.x *= 1.1;
+    ballSpeed.y *= 1.1;
 
     // Clear existing timer if any
     if (ballSpeedTimer) {
