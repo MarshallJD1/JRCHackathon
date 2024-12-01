@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentRound = 1; // Current round
 
   // Brick variables
-  const brickRowCount = 4; // Number of rows of bricks
+  const brickRowCount = 6; // Number of rows of bricks
   const brickColumnCount = 8; // Number of columns of bricks
-  const brickPadding = 5; // Padding between bricks
+  const brickPadding = 2; // Padding between bricks
   const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
   const brickHeight = 20; // Brick height
 
@@ -63,15 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to create bricks for round 2
   function createBricksRound2() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    for (let i = 0; i < 30; i++) { // Increase the number of bricks
+    for (let i = 0; i < 48; i++) { // Increase the number of bricks
       const brick = document.createElement("div");
       brick.classList.add("brick");
       brick.style.width = `${brickWidth}px`;
       brick.style.height = `${brickHeight}px`;
 
-      if (i < 10) brick.classList.add("red-brick");
-      else if (i < 20) brick.classList.add("blue-brick");
-      else brick.classList.add("green-brick");
+      if (i < 8) brick.classList.add("red-brick");
+      else if (i < 16) brick.classList.add("blue-brick");
+      else if (i < 32 )brick.classList.add("green-brick");
+      else brick.classList.add("yellow-brick");
 
       bricksContainer.appendChild(brick);
     }
@@ -80,15 +81,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to create bricks for round 3
   function createBricksRound3() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    for (let i = 0; i < 40; i++) { // Increase the number of bricks
+    for (let i = 0; i < 80; i++) { // Increase the number of bricks
       const brick = document.createElement("div");
       brick.classList.add("brick");
       brick.style.width = `${brickWidth}px`;
       brick.style.height = `${brickHeight}px`;
 
-      if (i < 10) brick.classList.add("red-brick");
-      else if (i < 20) brick.classList.add("blue-brick");
-      else if (i < 30) brick.classList.add("green-brick");
+      if (i < 16) brick.classList.add("red-brick");
+      else if (i < 32) brick.classList.add("blue-brick");
+      else if (i < 64) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
 
       bricksContainer.appendChild(brick);
