@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const beepB = document.getElementById("beep-b");
   const fail = document.getElementById("fail"); // New audio element
   const powerUp = document.getElementById("powerUp1"); // New audio element
+  const complete = document.getElementById("complete"); // New audio element
+  const completeGame = document.getElementById("completeGame"); // New audio element
 
   // Set volume cap for audio elements
   const volumeCap = 0.5; // Set volume cap to 50%
@@ -24,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   beepB.volume = volumeCap;
   fail.volume = volumeCap;
   powerUp.volume = volumeCap;
+  complete.volume = volumeCap;
+  completeGame.volume = volumeCap;
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
