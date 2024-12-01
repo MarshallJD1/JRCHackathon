@@ -55,6 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (row === 2) brick.classList.add("green-brick");
         else brick.classList.add("yellow-brick");
 
+        // Add power-up bricks
+        if (Math.random() < 0.1) { // 10% chance to be a power-up brick
+          brick.classList.add("power-up-brick");
+          brick.style.backgroundColor = "purple"; // Change styling for power-up bricks
+        }
+
         bricksContainer.appendChild(brick);
       }
     }
@@ -71,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (i < 8) brick.classList.add("red-brick");
       else if (i < 16) brick.classList.add("blue-brick");
-      else if (i < 32 )brick.classList.add("green-brick");
+      else if (i < 32) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
 
       bricksContainer.appendChild(brick);
@@ -100,6 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function checkBricks() {
     const bricks = document.querySelectorAll(".brick:not(.hit)");
     return bricks.length === 0;
+  }
+
+  function handlePowerUp() {
+    // Example power-up: Increase paddle size
+    const originalPaddleWidth = paddle.offsetWidth;
+    paddle.style.width = `${originalPaddleWidth + 20}px`;
+    // Set a timer to revert the power-up effect after 10 seconds
+    setTimeout(() => {
+      paddle.style.width = `${originalPaddleWidth}px`;
+    }, 10000); // 10 seconds
   }
 
   // Reset the ball and paddle position
@@ -214,10 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function moveBall() {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
-  
+
     const gameBounds = gameViewport.getBoundingClientRect();
     const ballDiameter = ball.offsetWidth;
-  
+
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
@@ -229,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
       beepA.currentTime = 0; // Reset audio playback position
       beepA.play(); // Play sound for wall collision
     }
-  
+
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
     const ballRect = ball.getBoundingClientRect();
@@ -244,22 +260,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const maxBounceAngle = Math.PI / 3; // 60 degrees
       const normalizedHitPosition = hitPosition / (paddleRect.width / 2);
       const bounceAngle = normalizedHitPosition * maxBounceAngle;
-  
+
       // Calculate new ball speed based on the bounce angle
       const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
-  
+
       beepB.currentTime = 0; // Reset audio playback position
       beepB.play(); // Play sound for paddle collision
     }
-  
+
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
-  
+
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -277,11 +293,15 @@ document.addEventListener("DOMContentLoaded", () => {
           // }, 500); // 500 millisecond cooldown
           beepA.currentTime = 0; // Reset audio playback position
           beepA.play(); // Play sound for brick collision
+
+          if (brick.classList.contains("power-up-brick")) {
+            handlePowerUp();
+          }// Apply power-up effect
           break; // Exit the loop after hitting one brick
         }
       }
     }
-  
+
     // Check if there are no bricks left
     if (checkBricks()) {
       alert("Round Cleared!");
@@ -300,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-  
+
     // Lose condition (ball hits bottom of viewport)
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
@@ -322,7 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-   
+
     // Update ball position
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
