@@ -47,6 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
   const brickHeight = 20; // Brick height
 
+  // Store timer IDs for power-ups
+  let paddleSizeTimer;
+  let ballSizeTimer;
+  let ballSpeedTimer;
+
   // Function to create bricks
   function createBricks() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
@@ -132,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to handle power-up effects
   function handlePowerUp() {
-    const powerUps = ["increasePaddleSize", "increaseBallSize"];
+    const powerUps = ["increasePaddleSize", "increaseBallSize", "increaseBallSpeed"];
     const selectedPowerUp = powerUps[Math.floor(Math.random() * powerUps.length)];
 
     switch (selectedPowerUp) {
@@ -150,35 +155,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-    // Function to reset power-up effects
-    function resetPowerUps() {
-      // Reset paddle size
-      paddle.style.width = "100px"; // Default paddle width
-      // Reset ball size
-      ball.style.width = "10px"; // Default ball width
-      ball.style.height = "10px"; // Default ball height
-      // Reset ball speed
-      ballSpeed = { x: 0, y: 0 }; // Default ball speed
+  // Function to reset power-up effects
+  function resetPowerUps() {
+    // Reset paddle size
+    paddle.style.width = "100px"; // Default paddle width
+    // Reset ball size
+    ball.style.width = "10px"; // Default ball width
+    ball.style.height = "10px"; // Default ball height
+    // Reset ball speed
+    ballSpeed = { x: 0, y: 0 }; // Default ball speed
+  }
+
+  // Power-up: Increase paddle size
+  function increasePaddleSize() {
+    const originalPaddleWidth = paddle.offsetWidth;
+    paddle.style.width = `${originalPaddleWidth + 20}px`;
+
+    // Clear existing timer if any
+    if (paddleSizeTimer) {
+      clearTimeout(paddleSizeTimer);
     }
+
+    // Set a timer to revert the power-up effect after 10 seconds
+    paddleSizeTimer = setTimeout(() => {
+      paddle.style.width = `${originalPaddleWidth}px`;
+    }, 10000); // 10 seconds
+  }
 
   // Power-up: Increase ball size
   function increaseBallSize() {
     const originalBallSize = ball.offsetWidth;
     ball.style.width = `${originalBallSize + 10}px`;
     ball.style.height = `${originalBallSize + 10}px`;
+
+    // Clear existing timer if any
+    if (ballSizeTimer) {
+      clearTimeout(ballSizeTimer);
+    }
+
     // Set a timer to revert the power-up effect after 10 seconds
-    setTimeout(() => {
+    ballSizeTimer = setTimeout(() => {
       ball.style.width = `${originalBallSize}px`;
       ball.style.height = `${originalBallSize}px`;
-    }, 10000); // 10 seconds
-  }
-
-  function increasePaddleSize() {
-    const originalPaddleWidth = paddle.offsetWidth;
-    paddle.style.width = `${originalPaddleWidth + 20}px`;
-    // Set a timer to revert the power-up effect after 10 seconds
-    setTimeout(() => {
-      paddle.style.width = `${originalPaddleWidth}px`;
     }, 10000); // 10 seconds
   }
 
@@ -187,8 +205,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const originalBallSpeed = { ...ballSpeed };
     ballSpeed.x *= 1.5;
     ballSpeed.y *= 1.5;
+
+    // Clear existing timer if any
+    if (ballSpeedTimer) {
+      clearTimeout(ballSpeedTimer);
+    }
+
     // Set a timer to revert the power-up effect after 10 seconds
-    setTimeout(() => {
+    ballSpeedTimer = setTimeout(() => {
       ballSpeed.x = originalBallSpeed.x;
       ballSpeed.y = originalBallSpeed.y;
     }, 10000); // 10 seconds
@@ -368,12 +392,10 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
           ballSpeed.y *= -1;
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
+          
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
-          // isCooldown = true;
-          // setTimeout(() => {
-          //   isCooldown = false;
-          // }, 500); // 500 millisecond cooldown
+         
           playSound(beepA); // Play sound for brick collision
 
           if (brick.classList.contains("power-up-brick")) {
@@ -382,6 +404,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
           }// Apply power-up effect
+
+          isCooldown = true;
+          setTimeout(() => {
+            isCooldown = false;
+          }, 100); // 100 millisecond cooldown
           break; // Exit the loop after hitting one brick
         }
       }
