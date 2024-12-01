@@ -390,6 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check if there are no bricks left
     if (checkBricks()) {
       alert("Round Cleared!");
+      playSound(complete); // Play sound for completing a round
       currentRound++;
       if (currentRound === 2) {
         resetBallAndPaddle();
@@ -402,6 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("You have completed all rounds!");
         isGameRunning = false;
+        playSound(completeGame); // Play sound for completing the game
         resetGame();
       }
     }
