@@ -28,17 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
   let isCooldown = false; // Cooldown flag
   let currentRound = 1; // Current round
 
-  // Function to create bricks for round 1
+  // Brick variables
+  const brickRowCount = 4; // Number of rows of bricks
+  const brickColumnCount = 5; // Number of columns of bricks
+  const brickPadding = 10; // Padding between bricks
+  const brickOffsetTop = 30; // Offset from the top of the viewport
+  const brickOffsetLeft = 30; // Offset from the left of the viewport
+  const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
+  const brickHeight = 20; // Brick height
+
+  // Function to create bricks
   function createBricks() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    const numRows = 4; // Number of rows of bricks
-    const numCols = 5; // Number of columns of bricks
-    const brickHeight = gameViewport.clientHeight / (numRows * 10); // Height of each brick proportional to screen height
+    bricksContainer.style.display = "grid";
+    bricksContainer.style.gridTemplateColumns = `repeat(${brickColumnCount}, ${brickWidth}px)`;
+    bricksContainer.style.gridGap = `${brickPadding}px`;
 
-    for (let row = 0; row < numRows; row++) {
-      for (let col = 0; col < numCols; col++) {
+    for (let row = 0; row < brickRowCount; row++) {
+      for (let col = 0; col < brickColumnCount; col++) {
         const brick = document.createElement("div");
         brick.classList.add("brick");
+        brick.style.width = `${brickWidth}px`;
         brick.style.height = `${brickHeight}px`;
 
         // Assign different colors to each row
@@ -119,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to set initial ball direction
   function setInitialBallDirection() {
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
-    const initialSpeed = 6; // Increase the initial speed
     ballSpeed = { x: initialSpeed * Math.cos(angle), y: -initialSpeed * Math.sin(angle) }; // Ball goes upwards
   }
 
@@ -177,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  
+  // Start game event
   gameViewport.addEventListener("click", () => {
     if (!isGameRunning || (ballSpeed.x === 0 && ballSpeed.y === 0)) {
       isGameRunning = true;
