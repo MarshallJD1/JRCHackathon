@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentRound = 1; // Current round
 
   // Brick variables
-  const brickRowCount = 4; // Number of rows of bricks
+  const brickRowCount = 6; // Number of rows of bricks
   const brickColumnCount = 8; // Number of columns of bricks
-  const brickPadding = 5; // Padding between bricks
+  const brickPadding = 2; // Padding between bricks
   const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
   const brickHeight = 20; // Brick height
 
@@ -63,13 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to create bricks for round 2
   function createBricksRound2() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    for (let i = 0; i < 30; i++) { // Increase the number of bricks
+    for (let i = 0; i < 48; i++) { // Increase the number of bricks
       const brick = document.createElement("div");
       brick.classList.add("brick");
+      brick.style.width = `${brickWidth}px`;
+      brick.style.height = `${brickHeight}px`;
 
-      if (i < 10) brick.classList.add("red-brick");
-      else if (i < 20) brick.classList.add("blue-brick");
-      else brick.classList.add("green-brick");
+      if (i < 8) brick.classList.add("red-brick");
+      else if (i < 16) brick.classList.add("blue-brick");
+      else if (i < 32 )brick.classList.add("green-brick");
+      else brick.classList.add("yellow-brick");
 
       bricksContainer.appendChild(brick);
     }
@@ -78,13 +81,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to create bricks for round 3
   function createBricksRound3() {
     bricksContainer.innerHTML = ""; // Clear existing bricks
-    for (let i = 0; i < 40; i++) { // Increase the number of bricks
+    for (let i = 0; i < 80; i++) { // Increase the number of bricks
       const brick = document.createElement("div");
       brick.classList.add("brick");
+      brick.style.width = `${brickWidth}px`;
+      brick.style.height = `${brickHeight}px`;
 
-      if (i < 10) brick.classList.add("red-brick");
-      else if (i < 20) brick.classList.add("blue-brick");
-      else if (i < 30) brick.classList.add("green-brick");
+      if (i < 16) brick.classList.add("red-brick");
+      else if (i < 32) brick.classList.add("blue-brick");
+      else if (i < 64) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
 
       bricksContainer.appendChild(brick);
@@ -93,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to check if there are no bricks left
   function checkBricks() {
-    const bricks = document.querySelectorAll(".brick");
+    const bricks = document.querySelectorAll(".brick:not(.hit)");
     return bricks.length === 0;
   }
 
@@ -127,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to set initial ball direction
   function setInitialBallDirection() {
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180); // Angle between 60-120 degrees
+    const initialSpeed = 6; // Increase the initial speed
     ballSpeed = { x: initialSpeed * Math.cos(angle), y: -initialSpeed * Math.sin(angle) }; // Ball goes upwards
   }
 
@@ -208,10 +214,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function moveBall() {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
-
+  
     const gameBounds = gameViewport.getBoundingClientRect();
     const ballDiameter = ball.offsetWidth;
-
+  
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
@@ -223,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
       beepA.currentTime = 0; // Reset audio playback position
       beepA.play(); // Play sound for wall collision
     }
-
+  
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
     const ballRect = ball.getBoundingClientRect();
@@ -238,22 +244,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const maxBounceAngle = Math.PI / 3; // 60 degrees
       const normalizedHitPosition = hitPosition / (paddleRect.width / 2);
       const bounceAngle = normalizedHitPosition * maxBounceAngle;
-
+  
       // Calculate new ball speed based on the bounce angle
       const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
-
+  
       beepB.currentTime = 0; // Reset audio playback position
       beepB.play(); // Play sound for paddle collision
     }
-
+  
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
-
+  
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -265,19 +271,28 @@ document.addEventListener("DOMContentLoaded", () => {
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
+          // isCooldown = true;
+          // setTimeout(() => {
+          //   isCooldown = false;
+          // }, 500); // 500 millisecond cooldown
           beepA.currentTime = 0; // Reset audio playback position
           beepA.play(); // Play sound for brick collision
+          break; // Exit the loop after hitting one brick
         }
       }
     }
-
+  
     // Check if there are no bricks left
     if (checkBricks()) {
       alert("Round Cleared!");
       currentRound++;
       if (currentRound === 2) {
+        resetBallAndPaddle();
+        isGameRunning = false; // Ensure game is not running after clearing a round
         createBricksRound2();
       } else if (currentRound === 3) {
+        resetBallAndPaddle();
+        isGameRunning = false; // Ensure game is not running after clearing a round
         createBricksRound3();
       } else {
         alert("You have completed all rounds!");
@@ -285,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-
+  
     // Lose condition (ball hits bottom of viewport)
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
