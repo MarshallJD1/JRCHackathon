@@ -145,6 +145,18 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
   }
+
+    // Function to reset power-up effects
+    function resetPowerUps() {
+      // Reset paddle size
+      paddle.style.width = "100px"; // Default paddle width
+      // Reset ball size
+      ball.style.width = "10px"; // Default ball width
+      ball.style.height = "10px"; // Default ball height
+      // Reset ball speed
+      ballSpeed = { x: 0, y: 0 }; // Default ball speed
+    }
+
   // Power-up: Increase ball size
   function increaseBallSize() {
     const originalBallSize = ball.offsetWidth;
@@ -200,6 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Re-enable the start button
     startButton.disabled = false;
 
+    // Reset power-up effects
+    resetPowerUps();
+
     // Debugging output
     console.log("Ball Position:", ballPosition);
     console.log("Paddle Position:", paddlePosition);
@@ -222,6 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     createBricks();
     resetBallAndPaddle();
     isGameRunning = false; // Ensure game is not running after reset
+    resetPowerUps();
   }
 
   // Event listener to move the paddle with mouse
