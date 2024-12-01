@@ -125,6 +125,16 @@ h1 {
   background-color: transparent; /* Make it invisible */
   border: none; /* Optional: Remove any default borders */
 }
+.power-up-message {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(255, 0, 242);
+  font-size: 4em;
+  text-align: center;
+  display: none; /* Hide by default */
+}
 
 .red-brick {
   background-color: var(--brick-red);

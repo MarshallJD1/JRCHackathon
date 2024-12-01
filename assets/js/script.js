@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameViewport = document.getElementById("game-viewport");
   const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
   const livesRemaining = document.getElementById("lives-remaining"); // New element
+  const powerUpMessage = document.getElementById("power-up-message");
 
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
@@ -166,10 +167,23 @@ document.addEventListener("DOMContentLoaded", () => {
     ballSpeed = { x: 0, y: 0 }; // Default ball speed
   }
 
+  function showPowerUpMessage(message) {
+    
+    powerUpMessage.textContent = message;
+    powerUpMessage.style.display = 'block';
+  }
+
+  function hidePowerUpMessage() {
+    
+    powerUpMessage.style.display = 'none';
+  }
+
   // Power-up: Increase paddle size
   function increasePaddleSize() {
     const originalPaddleWidth = paddle.offsetWidth;
     paddle.style.width = `${originalPaddleWidth + 20}px`;
+
+    showPowerUpMessage("Paddle Size Increased!");
 
     // Clear existing timer if any
     if (paddleSizeTimer) {
@@ -179,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set a timer to revert the power-up effect after 10 seconds
     paddleSizeTimer = setTimeout(() => {
       paddle.style.width = `${originalPaddleWidth}px`;
+      hidePowerUpMessage();
     }, 10000); // 10 seconds
   }
 
@@ -187,6 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const originalBallSize = ball.offsetWidth;
     ball.style.width = `${originalBallSize + 10}px`;
     ball.style.height = `${originalBallSize + 10}px`;
+
+    showPowerUpMessage("Ball Size Increased!");
 
     // Clear existing timer if any
     if (ballSizeTimer) {
@@ -197,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ballSizeTimer = setTimeout(() => {
       ball.style.width = `${originalBallSize}px`;
       ball.style.height = `${originalBallSize}px`;
+      hidePowerUpMessage();
     }, 10000); // 10 seconds
   }
 
@@ -205,6 +223,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const originalBallSpeed = { ...ballSpeed };
     ballSpeed.x *= 1.1;
     ballSpeed.y *= 1.1;
+
+    showPowerUpMessage("Ball Speed Increased!");
 
     // Clear existing timer if any
     if (ballSpeedTimer) {
@@ -215,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ballSpeedTimer = setTimeout(() => {
       ballSpeed.x = originalBallSpeed.x;
       ballSpeed.y = originalBallSpeed.y;
+      hidePowerUpMessage();
     }, 10000); // 10 seconds
   }
 
