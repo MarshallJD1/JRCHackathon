@@ -17,9 +17,13 @@
 
     <div id="game-container">
         <!-- How to Play button-->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlayModal">
-            How to Play
-        </button>
+        <div class="button-container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlayModal">
+                How to Play
+            </button>
+            <!-- Show high scores button -->
+            <button id="show-high-scores" class="btn btn-primary">Show High Scores</button>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="howToPlayModal" tabindex="-1" aria-labelledby="howToPlayModalLabel"
@@ -46,6 +50,31 @@
             </div>
         </div>
 
+        <!-- High Scores Modal -->
+        <div class="modal fade" id="highScoresModal" tabindex="-1" aria-labelledby="highScoresModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="highScoresModalLabel">High Scores</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="highScoreForm">
+                            <div class="mb-3">
+                                <label for="playerName" class="form-label">Enter your name:</label>
+                                <input type="text" class="form-control" id="playerName" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                        <hr>
+                        <h5>Top Scores:</h5>
+                        <ul id="highScoresList" class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="game-viewport">
             <div id="paddle"></div>
             <div id="ball"></div>
@@ -58,6 +87,7 @@
             <span id="score">Score: 0</span>
             <span id="lives">Lives: 3</span>
             <button id="start-game" class="btn btn-success">Start</button>
+            
         </div>
     </div>
     <!-- Audio elements for sound effects -->
@@ -74,6 +104,12 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <!-- Custom JS -->
     <script src="assets/js/script.js"></script>

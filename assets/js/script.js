@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
   const livesRemaining = document.getElementById("lives-remaining"); // New element
   const powerUpMessage = document.getElementById("power-up-message");
+  const highScoresModalElement = document.getElementById('highScoresModal');
+  const highScoresModal = new bootstrap.Modal(highScoresModalElement);
+  const showHighScoresButton = document.getElementById('show-high-scores');
 
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
@@ -52,6 +55,67 @@ document.addEventListener("DOMContentLoaded", () => {
   let paddleSizeTimer;
   let ballSizeTimer;
   let ballSpeedTimer;
+
+  // High scores logic
+  const highScoreForm = document.getElementById('highScoreForm');
+  const playerNameInput = document.getElementById('playerName');
+  const highScoresList = document.getElementById('highScoresList');
+
+  // Load high scores from localStorage
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+  // Function to update the high scores list
+  function updateHighScoresList() {
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    const highScoresList = document.getElementById('highScoresList');
+    highScoresList.innerHTML = highScores.map(score => `<li class="list-group-item">${score.name}: ${score.score}</li>`).join('');
+  }
+
+  // Show high scores modal
+  function showHighScoresModal() {
+    updateHighScoresList();
+    highScoresModal.show();
+  }
+
+  // Event listener for the high scores button
+  if (showHighScoresButton) {
+    showHighScoresButton.addEventListener('click', showHighScoresModal);
+  }
+
+  // Handle high score form submission
+  highScoreForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const playerName = playerNameInput.value.trim();
+    if (playerName) {
+      submitHighScore(playerName, score);
+      highScoresModal.hide();
+    }
+  });
+
+  function submitHighScore(name, score) {
+    if (score === 0) {
+      showMessage("You cannot submit a score of zero!");
+      return;
+    }
+  
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    highScores.push({ name, score });
+    highScores.sort((a, b) => b.score - a.score);
+    highScores.splice(10); // Keep only top 10 scores
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    console.log("High score submitted!");
+    showMessage("High score submitted!");
+    updateHighScoresList();
+    resetGame(); // Restart the game after submitting the high score
+  }
+
+  // Function to handle game over
+  function handleGameOver() {
+    showHighScoresModal();
+    highScoresModalElement.addEventListener('hidden.bs.modal', () => {
+      resetGame(); // Restart the game after the high scores modal is closed
+    });
+  }
 
   // Function to create bricks
   function createBricks() {
@@ -287,6 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resetBallAndPaddle();
     isGameRunning = false; // Ensure game is not running after reset
     resetPowerUps();
+    startButton.disabled = false; // Re-enable the start button
   }
 
   // Event listener to move the paddle with mouse
@@ -454,7 +519,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("You have completed all rounds!");
         isGameRunning = false;
         
-        resetGame();
+        handleGameOver(); // Show high scores modal and reset the game after it is closed
       }
     }
 
@@ -475,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("Game Over!");
         isGameRunning = false;
-        resetGame();
+        handleGameOver();
       }
     }
 
@@ -494,6 +559,26 @@ document.addEventListener("DOMContentLoaded", () => {
       moveBall();
       requestAnimationFrame(gameLoop);
     }
+  }
+
+  // Function to show a message
+  function showMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.textContent = message;
+    messageElement.style.position = 'absolute';
+    messageElement.style.top = '50%';
+    messageElement.style.left = '50%';
+    messageElement.style.transform = 'translate(-50%, -50%)';
+    messageElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    messageElement.style.color = 'white';
+    messageElement.style.padding = '20px';
+    messageElement.style.borderRadius = '10px';
+    messageElement.style.zIndex = '1000';
+    document.body.appendChild(messageElement);
+
+    setTimeout(() => {
+      document.body.removeChild(messageElement);
+    }, 3000); // Display the message for 3 seconds
   }
 
   // Initialize game

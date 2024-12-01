@@ -45,6 +45,15 @@ body {
   color: white;
 }
 
+/* High Scores Modal */
+#highScoresModal .modal-body {
+  text-align: center;
+}
+
+#highScoresList {
+  margin-top: 20px;
+}
+
 h1 {
   text-transform: uppercase;
 }
@@ -163,6 +172,13 @@ h1 {
 #info {
   margin-top: 10px;
   text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  margin-bottom: 20px; /* Space below the buttons */
 }
 
 /* touch devices CSS override */
