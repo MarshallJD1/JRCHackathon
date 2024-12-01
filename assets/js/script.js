@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fail = document.getElementById("fail"); // New audio element
 
   // Initialize game variables
-  const initialSpeed = 8; // Initial speed
+  const initialSpeed = 10; // Initial speed
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
   let paddlePosition = 250; // Initial position of the paddle
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Brick variables
   const brickRowCount = 4; // Number of rows of bricks
-  const brickColumnCount = 5; // Number of columns of bricks
+  const brickColumnCount = 20; // Number of columns of bricks
   const brickPadding = 10; // Padding between bricks
   const brickOffsetTop = 30; // Offset from the top of the viewport
   const brickOffsetLeft = 30; // Offset from the left of the viewport
@@ -210,10 +210,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function moveBall() {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
-  
+
     const gameBounds = gameViewport.getBoundingClientRect();
     const ballDiameter = ball.offsetWidth;
-  
+
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
       beepA.currentTime = 0; // Reset audio playback position
       beepA.play(); // Play sound for wall collision
     }
-  
+
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
     const ballRect = ball.getBoundingClientRect();
@@ -240,22 +240,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const maxBounceAngle = Math.PI / 3; // 60 degrees
       const normalizedHitPosition = hitPosition / (paddleRect.width / 2);
       const bounceAngle = normalizedHitPosition * maxBounceAngle;
-  
+
       // Calculate new ball speed based on the bounce angle
       const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
-  
+
       beepB.currentTime = 0; // Reset audio playback position
       beepB.play(); // Play sound for paddle collision
     }
-  
+
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
+      let collisionDetected = false;
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
-  
+
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -267,17 +268,19 @@ document.addEventListener("DOMContentLoaded", () => {
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
-          isCooldown = true;
-          setTimeout(() => {
-            isCooldown = false;
-          }, 500); // 500 millisecond cooldown
+          collisionDetected = true;
           beepA.currentTime = 0; // Reset audio playback position
           beepA.play(); // Play sound for brick collision
-          break; // Exit the loop after hitting one brick
         }
       }
+      if (collisionDetected) {
+        isCooldown = true;
+        setTimeout(() => {
+          isCooldown = false;
+        }, 80); // 80 millisecond cooldown
+      }
     }
-  
+
     // Check if there are no bricks left
     if (checkBricks()) {
       alert("Round Cleared!");
@@ -292,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-  
+
     // Lose condition (ball hits bottom of viewport)
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
@@ -313,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
       }
     }
-  
+
     // Update ball position
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
