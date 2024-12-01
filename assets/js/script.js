@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const fail = document.getElementById("fail"); // New audio element
   const powerUp = document.getElementById("powerUp1"); // New audio element
 
+  // Set volume cap for audio elements
+  const volumeCap = 0.5; // Set volume cap to 50%
+  beepA.volume = volumeCap;
+  beepB.volume = volumeCap;
+  fail.volume = volumeCap;
+  powerUp.volume = volumeCap;
+
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
@@ -279,6 +286,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Function to play sound with reset
+  function playSound(sound) {
+    sound.currentTime = 0; // Reset audio playback position
+    sound.play(); // Play sound
+  }
+
   // Ball movement and collision detection
   function moveBall() {
     ballPosition.x += ballSpeed.x;
@@ -290,13 +303,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
-      beepA.currentTime = 0; // Reset audio playback position
-      beepA.play(); // Play sound for wall collision
+      playSound(beepA); // Play sound for wall collision
     }
     if (ballPosition.y <= 0) {
       ballSpeed.y *= -1;
-      beepA.currentTime = 0; // Reset audio playback position
-      beepA.play(); // Play sound for wall collision
+      playSound(beepA); // Play sound for wall collision
     }
 
     // Paddle collision
@@ -319,8 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
 
-      beepB.currentTime = 0; // Reset audio playback position
-      beepB.play(); // Play sound for paddle collision
+      playSound(beepB); // Play sound for paddle collision
     }
 
     // Brick collision
@@ -344,13 +354,11 @@ document.addEventListener("DOMContentLoaded", () => {
           // setTimeout(() => {
           //   isCooldown = false;
           // }, 500); // 500 millisecond cooldown
-          beepA.currentTime = 0; // Reset audio playback position
-          beepA.play(); // Play sound for brick collision
+          playSound(beepA); // Play sound for brick collision
 
           if (brick.classList.contains("power-up-brick")) {
             handlePowerUp();
-            powerUp.currentTime = 0; // Reset audio playback position
-            powerUp.play(); // Play sound for power-up brick
+            playSound(powerUp); // Play sound for power-up brick
 
 
           }// Apply power-up effect
@@ -382,8 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
       livesDisplay.textContent = `Lives: ${lives}`;
-      fail.currentTime = 0; // Reset audio playback position
-      fail.play(); // Play sound for losing a life
+      playSound(fail); // Play sound for losing a life
       livesRemaining.textContent = `You have ${lives} lives remaining`; // Update lives remaining message
       livesRemaining.style.display = 'block'; // Show the message
       setTimeout(() => {
