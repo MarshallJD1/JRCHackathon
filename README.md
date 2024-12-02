@@ -1,6 +1,6 @@
 # JRCHackathon - Brick Breaker
 
-[View life project here on GitHub](https://marshalljd1.github.io/JRCHackathon/)
+[View live project here on GitHub](https://marshalljd1.github.io/JRCHackathon/)
 
 <br>
 
@@ -144,7 +144,7 @@ progress of our implementation </p>
 
 Testing and validation os the website was carried out throughout the course of the project.
 
-This included regular debugging and testing using the Dev Tools as ptovided within Chrome Browser.
+This included regular debugging and testing using the Dev Tools as provided within Chrome Browser.
 
 [HTML Validation](https://validator.w3.org/)<br>
 ![HTML Validation](/documentation/images/validation-html.webp)
@@ -153,7 +153,7 @@ This included regular debugging and testing using the Dev Tools as ptovided with
 ![CSS Validation](/documentation/images/validation-css.webp)
 
 [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
-![Lighthouse](/documentation/images/placeholder-image.jpg)
+![Lighthouse](/documentation/images/lighthouse.webp)
 
 <br>
 
