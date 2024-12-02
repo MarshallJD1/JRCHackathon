@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   completeGame.volume = volumeCap;
 
   // Initialize game variables
-  const initialSpeed = 8; // Initial speed
+ 
   let ballSpeed = { x: 0, y: 0 }; // Speed of the ball in x and y directions
   let ballPosition = { x: 0, y: 0 }; // Position of the ball
   let paddlePosition = 250; // Initial position of the paddle
@@ -62,10 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // High scores logic
   const highScoreForm = document.getElementById('highScoreForm');
   const playerNameInput = document.getElementById('playerName');
-  const highScoresList = document.getElementById('highScoresList');
 
-  // Load high scores from localStorage
-  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
   // Function to update the high scores list
   function updateHighScoresList() {
