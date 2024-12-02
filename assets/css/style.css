@@ -281,142 +281,22 @@ h1 {
 
 /* touch devices CSS override */
 /* Hide the start button on touch devices */
+/* Touch devices specific rules */
 @media (pointer: coarse) {
   #start-game {
     display: none;
   }
-}
 
-/* Hide the button-container on touch devices by default */
-@media (pointer: coarse) {
-  .button-container {
-    display: none;
-  }
-}
-
-/* Show the button-container when selected */
-.button-container.selected {
-  display: flex;
-}
-
-/* general media rules */
-/* Hide burger menu on larger devices */
-@media (min-width: 883px) {
-  .navbar {
-    display: none;
-  }
-}
-
-/* Show the "tap to begin" message on touch devices */
-@media (pointer: coarse) {
   .tap-to-begin {
     display: block;
   }
 
   .button-container {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  #game-viewport {
-    width: 100%;
-    height: 80%;
-  }
-
-  body,
-  html {
-    overflow: hidden;
-    height: 100%;
-  }
-
-  #game-container {
-    height: 100vh;
-    /* Full viewport height */
-    overflow: hidden;
-    /* Prevent scrolling within the game container */
-  }
-
-  #paddle {
-    width: 15%;
-  }
-
-  .brick {
-    width: 12%;
-    height: 6%;
-  }
-
-  .button-container {
-    display: none;
-  }
-
-  .navbar {
     display: block;
   }
-
-  .navbar-collapse {
-    top: 40px;
-    /* Adjust this value to position the menu below the header */
-    display: none;
-    /* Hide the menu by default */
-  }
-
-  .header-container {
-    justify-content: center;
-    /* Center the header on smaller devices */
-  }
 }
 
-/* Landscape orientation for smaller devices */
-@media (max-width: 768px) and (orientation: landscape) {
-  #game-viewport {
-    width: 100%;
-    height: 90%;
-  }
-
-  body,
-  html {
-    overflow: hidden;
-    height: 100%;
-  }
-
-  #game-container {
-    height: 100vh;
-    /* Full viewport height */
-    overflow: hidden;
-    /* Prevent scrolling within the game container */
-  }
-
-  #paddle {
-    width: 12%;
-  }
-
-  .brick {
-    width: 10%;
-    height: 5%;
-  }
-
-  .button-container {
-    display: none;
-  }
-
-  .navbar {
-    display: block;
-  }
-
-  .navbar-collapse {
-    top: 40px;
-    /* Adjust this value to position the menu below the header */
-    display: none;
-    /* Hide the menu by default */
-  }
-
-  .header-container {
-    justify-content: center;
-    /* Center the header on smaller devices */
-  }
-}
-
+/* Small devices (max-width: 576px) */
 @media (max-width: 576px) {
   #game-viewport {
     width: 100%;
@@ -437,18 +317,83 @@ h1 {
   }
 
   .navbar {
+    display: flex;
+  }
+
+  .navbar-toggler {
     display: block;
   }
 
   .navbar-collapse {
-    top: 40px;
-    /* Adjust this value to position the menu below the header */
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 40px; /* Position below the navbar */
+    width: 100%;
+    background-color: black;
+  }
 
+  .navbar-collapse.show {
+    display: block; /* Show when toggled */
   }
 
   .header-container {
-    justify-content: center;
-    /* Center the header on smaller devices */
+    justify-content: space-between;
+  }
+}
+
+/* Medium devices (max-width: 768px) */
+@media (max-width: 768px) {
+  #game-viewport {
+    width: 100%;
+    height: 80%;
+  }
+
+  #paddle {
+    width: 15%;
+  }
+
+  .brick {
+    width: 12%;
+    height: 6%;
+  }
+
+  .button-container {
+    display: none;
+  }
+
+  .navbar {
+    display: flex;
+  }
+
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px; /* Adjust for larger navbar header */
+    width: 100%;
+    background-color: black;
+  }
+
+  .navbar-collapse.show {
+    display: block; /* Show when toggled */
+  }
+
+  .header-container {
+    justify-content: space-between;
+  }
+}
+
+/* Large devices (min-width: 768px) */
+@media (min-width: 768px) {
+  .navbar {
+    display: none; /* Hide navbar for larger screens */
+  }
+
+  .button-container {
+    display: flex;
   }
 }
 
@@ -466,10 +411,8 @@ h1 {
   }
 
   #game-container {
-    height: 100vh;
-    /* Full viewport height */
-    overflow: hidden;
-    /* Prevent scrolling within the game container */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling within the game container */
   }
 
   #paddle {
@@ -486,22 +429,27 @@ h1 {
   }
 
   .navbar {
+    display: flex;
+  }
+
+  .navbar-toggler {
     display: block;
   }
 
   .navbar-collapse {
-    top: 40px;
-    /* Adjust this value to position the menu below the header */
-    display: none;
-    /* Hide the menu by default */
+    display: none; /* Hidden by default */
+  }
+
+  .navbar-collapse.show {
+    display: block; /* Show when toggled */
   }
 
   .header-container {
-    justify-content: center;
-    /* Center the header on smaller devices */
+    justify-content: space-between;
   }
 }
 
+/* Extra rules for small landscape devices */
 @media (max-width: 882px) and (orientation: landscape) {
   #game-viewport {
     width: 100%;
@@ -522,19 +470,23 @@ h1 {
   }
 
   .navbar {
+    display: flex;
+  }
+
+  .navbar-toggler {
     display: block;
   }
 
   .navbar-collapse {
-    top: 40px;
-    /* Adjust this value to position the menu below the header */
-    display: none;
-    /* Hide the menu by default */
+    display: none; /* Hidden by default */
+  }
+
+  .navbar-collapse.show {
+    display: block; /* Show when toggled */
   }
 
   .header-container {
-    justify-content: center;
-    /* Center the header on smaller devices */
+    justify-content: space-between;
   }
 }
 
