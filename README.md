@@ -20,12 +20,17 @@
 * [Features for MVP](#features-for-mvp)
 * [Features to be Added](#features-to-be-added)
 * [Testing](#testing)
-  * [HTML Validation using W3C Validation](#html-validation-using-w3c-validation)
+  * [HTML Validation using W3C Validation](#html-validation)
   * [CSS Validation using W3C Validation](#css-validation-using-w3c-validation)
-  * [Lighthouse scores via Chrome Developer Tools](#lighthouse-scores-via-chrome-developer-tools)
+  * [Lighthouse scores via Chrome Developer Tools](#lighthouse-testing)
+  * [ARIA Validation](#aria-validation)
+  * [JavaScript Validation](#javascript-validation)
   * [Bugs & Fixes](#bugs--fixes)
   * [Unsolved Bugs](#unsolved-bugs)
 * [Credits](#credits) 
+  * [Content References](#content-references)
+  * [Media References](#media-references)
+  * [Planning Resources](#planning-resources)
 <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
 
@@ -169,22 +174,23 @@ progress of our implementation </p>
 
 ## Testing
 
-Testing and validation os the website was carried out throughout the course of the project.
+Testing and validation of the website was carried out throughout the course of the project.
 
 This included regular debugging and testing using the Dev Tools as provided within Chrome Browser.
 
+#### HTML validation
 [HTML Validation](https://validator.w3.org/)<br>
 ![HTML Validation](/documentation/images/validation-html.webp)
-
+#### CSS Validation
 [CSS Validation](https://jigsaw.w3.org/css-validator/)<br>
 ![CSS Validation](/documentation/images/validation-css.webp)
-
+#### Lighthouse testing
 [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
 ![Lighthouse](/documentation/images/lighthouse.webp)
-
+#### ARIA validation
 [ARIA Validation](https://wave.webaim.org/report#/https://marshalljd1.github.io/JRCHackathon/)
 ![ARIA Validation](/documentation/images/validation-aria.webp)
-
+#### JavaScript Validation
 [JS Validation](https://jshint.com/)
 ![JS Validation](/documentation/images/validation-jshint.webp)
 
@@ -195,8 +201,7 @@ This included regular debugging and testing using the Dev Tools as provided with
 
 <br>
 
-<p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
-popped here :) </p>
+<p> The following bugs were identified and corrected over the course of the hackathon:</p>
 
 <hr>
 <ul>
@@ -227,3 +232,8 @@ popped here :) </p>
 
   <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
+
+### **Planning Resources**
+- [Miro](https://miro.com/app/) for whiteboard collaborative idea planning.
+- [Balsamiq](https://balsamiq.com/) for wireframes.
+
