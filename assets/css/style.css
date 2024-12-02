@@ -244,6 +244,7 @@ h1 {
   width: 100%;
   background-color: black; /* Set background color to black */
   z-index: 999; /* Ensure it is above other elements */
+  
 }
 
 /* touch devices CSS override */
@@ -281,7 +282,7 @@ h1 {
 
   .navbar-collapse {
     top: 40px; /* Adjust this value to position the menu below the header */
-    display: none; /* Hide the menu by default */
+    
   }
 
   .header-container {
@@ -314,7 +315,7 @@ h1 {
 
   .navbar-collapse {
     top: 40px; /* Adjust this value to position the menu below the header */
-    display: none; /* Hide the menu by default */
+    
   }
 
   .header-container {
