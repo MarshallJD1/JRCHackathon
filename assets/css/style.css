@@ -329,6 +329,15 @@ h1 {
     width: 100%;
     height: 90%;
   }
+  body, html {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  #game-container {
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling within the game container */
+  }
 
   #paddle {
     width: 12%;
