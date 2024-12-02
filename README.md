@@ -14,7 +14,7 @@
 * [How to Play](#how-to-play)
 * [Collaborators](#collaborators)
 * [Project Planning](#project-planning)
-  * [Wire Frames](#wire-frames)
+  * [Wireframes](#wireframes)
   * [Project Board](#project-board)
   * [Styling Choices](#styling-choices)
 * [Features for MVP](#features-for-mvp)
@@ -54,6 +54,9 @@ We will be adding extra content throughout the project if time constraints allow
 <br>
 
 <p> Deployment page : (https://marshalljd1.github.io/JRCHackathon/)
+
+![Screenshots](/documentation/images/deployed-screenshots.webp)
+
 <p> Use the mouse on Desktops to control the paddle </p>
 <p> --Touch device controls to be implimented--</p>
 <p> Press the start button to set the game in motion and keep that rally up!</p>
@@ -89,23 +92,14 @@ We will be adding extra content throughout the project if time constraints allow
 <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
 
-## Wire frames
+## Wireframes
 
 <br>
 
-<p>These are loose plans for out UI and maywell differ throughou the project</p>
+<p>Wireframes were used to spatially arrange the elements of the project. These were arranged in the Balsamiq app.</p>
 
-<p> Below is the Wire frame for mobile devices</p>
+![Wireframes](/documentation/images/wireframes.webp)
 
-![mobiles](https://github.com/user-attachments/assets/a8fc86f1-d33d-4fd5-b54b-8430e3e87e98)
-
-<p>Below is the Wire frame for Tablets</p>
-
-![tablets](https://github.com/user-attachments/assets/3dc83c96-203e-44e0-8177-0abe369c1534)
-
-<p> Below is the Wire frame for desktop</p>
-
-![Desktops](https://github.com/user-attachments/assets/ff14b953-41b4-4e0e-a6bc-3938411cb3d8)
 <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
 
