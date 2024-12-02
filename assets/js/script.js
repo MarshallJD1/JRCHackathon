@@ -424,6 +424,11 @@ document.addEventListener("DOMContentLoaded", () => {
     sound.play(); // Play sound
   }
 
+  let wallCollisionCounter = 0;
+  let wallCollisionTimer;
+  const wallCollisionThreshold = 5;
+  const wallCollisionTimeFrame = 500; // 500 milliseconds (half a second)
+
   // Ball movement and collision detection
   function moveBall() {
     ballPosition.x += ballSpeed.x;
@@ -436,6 +441,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
       playSound(beepA); // Play sound for wall collision
+
+      // Increment wall collision counter and start/reset timer
+      wallCollisionCounter++;
+      if (wallCollisionTimer) {
+        clearTimeout(wallCollisionTimer);
+      }
+      wallCollisionTimer = setTimeout(() => {
+        wallCollisionCounter = 0; // Reset counter after the time frame
+      }, wallCollisionTimeFrame);
+
+      // Check if wall collision threshold is exceeded
+      if (wallCollisionCounter > wallCollisionThreshold) {
+        resetBallAndPaddle(); // Reset the ball to the paddle
+        wallCollisionCounter = 0; // Reset the counter
+      }
     }
     if (ballPosition.y <= 0) {
       ballSpeed.y *= -1;
@@ -470,7 +490,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const bricks = document.querySelectorAll(".brick");
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
-
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -480,18 +499,16 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
           ballSpeed.y *= -1;
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
-          
+
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
-         
+
           playSound(beepA); // Play sound for brick collision
 
           if (brick.classList.contains("power-up-brick")) {
             handlePowerUp();
             playSound(powerUp); // Play sound for power-up brick
-
-
-          }// Apply power-up effect
+          }
 
           isCooldown = true;
           setTimeout(() => {
@@ -506,7 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (checkBricks()) {
       playSound(complete); // Play sound for completing a round
       alert("Round Cleared!");
-      
+
       currentRound++;
       if (currentRound === 2) {
         resetBallAndPaddle();
@@ -520,7 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
         playSound(completeGame); // Play sound for completing the game
         alert("You have completed all rounds!");
         isGameRunning = false;
-        
+
         handleGameOver(); // Show high scores modal and reset the game after it is closed
       }
     }
