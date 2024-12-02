@@ -120,3 +120,19 @@ progress of our implementation </p>
 <p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
 popped here :) </p>
 
+## Testing
+
+Testing and validation os the website was carried out throughout the course of the project.
+
+This included regular debugging and testing using the Dev Tools as ptovided within Chrome Browser.
+
+[HTML Validation](https://validator.w3.org/)<br>
+![HTML Validation](/documentation/images/validation-html.webp)
+
+[CSS Validation](https://jigsaw.w3.org/css-validator/)<br>
+![CSS Validation](/documentation/images/validation-css.webp)
+
+[Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
+![Lighthouse](/documentation/images/placeholder-image.jpg)
+
+<hr>
