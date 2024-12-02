@@ -303,10 +303,94 @@ h1 {
     width: 15%;
     height: 7%;
   }
+
+  .button-container {
+    display: none;
+  }
+
+  .navbar {
+    display: block;
+  }
+
+  .navbar-collapse {
+    top: 40px; /* Adjust this value to position the menu below the header */
+    display: none; /* Hide the menu by default */
+  }
+
+  .header-container {
+    justify-content: center; /* Center the header on smaller devices */
+  }
+}
+
+/* Landscape orientation for smaller devices */
+@media (max-width: 768px) and (orientation: landscape) {
+  #game-viewport {
+    width: 100%;
+    height: 90%;
+  }
+
+  #paddle {
+    width: 12%;
+  }
+
+  .brick {
+    width: 10%;
+    height: 5%;
+  }
+
+  .button-container {
+    display: none;
+  }
+
+  .navbar {
+    display: block;
+  }
+
+  .navbar-collapse {
+    top: 40px; /* Adjust this value to position the menu below the header */
+    display: none; /* Hide the menu by default */
+  }
+
+  .header-container {
+    justify-content: center; /* Center the header on smaller devices */
+  }
+}
+
+@media (max-width: 882px) and (orientation: landscape) {
+  #game-viewport {
+    width: 100%;
+    height: 90%;
+  }
+
+  #paddle {
+    width: 15%;
+  }
+
+  .brick {
+    width: 12%;
+    height: 4%;
+  }
+
+  .button-container {
+    display: none;
+  }
+
+  .navbar {
+    display: block;
+  }
+
+  .navbar-collapse {
+    top: 40px; /* Adjust this value to position the menu below the header */
+    display: none; /* Hide the menu by default */
+  }
+
+  .header-container {
+    justify-content: center; /* Center the header on smaller devices */
+  }
 }
 
 /* Hide burger menu on larger devices */
-@media (min-width: 769px) {
+@media (min-width: 883px) {
   .navbar {
     display: none;
   }
