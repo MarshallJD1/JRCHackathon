@@ -11,11 +11,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameViewport = document.getElementById("game-viewport");
   const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
   const livesRemaining = document.getElementById("lives-remaining"); // New element
+  const powerUpMessage = document.getElementById("power-up-message");
+  const highScoresModalElement = document.getElementById('highScoresModal');
+  const highScoresModal = new bootstrap.Modal(highScoresModalElement);
+  const showHighScoresButton = document.getElementById('show-high-scores');
+  const burgerMenu = new bootstrap.Collapse(document.getElementById('navbarNav'));
+  
 
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
   const beepB = document.getElementById("beep-b");
   const fail = document.getElementById("fail"); // New audio element
+  const powerUp = document.getElementById("powerUp1"); // New audio element
+  const complete = document.getElementById("complete"); // New audio element
+  const completeGame = document.getElementById("completeGame"); // New audio element
+
+  // Set volume cap for audio elements
+  const volumeCap = 0.5; // Set volume cap to 50%
+  beepA.volume = volumeCap;
+  beepB.volume = volumeCap;
+  fail.volume = volumeCap;
+  powerUp.volume = volumeCap;
+  complete.volume = volumeCap;
+  completeGame.volume = volumeCap;
 
   // Initialize game variables
   const initialSpeed = 8; // Initial speed
@@ -34,6 +52,72 @@ document.addEventListener("DOMContentLoaded", () => {
   const brickPadding = 2; // Padding between bricks
   const brickWidth = (gameViewport.clientWidth - (brickColumnCount + 1) * brickPadding) / brickColumnCount; // Calculate brick width
   const brickHeight = 20; // Brick height
+
+  // Store timer IDs for power-ups
+  let paddleSizeTimer;
+  let ballSizeTimer;
+  let ballSpeedTimer;
+
+  // High scores logic
+  const highScoreForm = document.getElementById('highScoreForm');
+  const playerNameInput = document.getElementById('playerName');
+  const highScoresList = document.getElementById('highScoresList');
+
+  // Load high scores from localStorage
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+  // Function to update the high scores list
+  function updateHighScoresList() {
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    const highScoresList = document.getElementById('highScoresList');
+    highScoresList.innerHTML = highScores.map(score => `<li class="list-group-item">${score.name}: ${score.score}</li>`).join('');
+  }
+
+  // Show high scores modal
+  function showHighScoresModal() {
+    updateHighScoresList();
+    highScoresModal.show();
+  }
+
+  // Event listener for the high scores button
+  if (showHighScoresButton) {
+    showHighScoresButton.addEventListener('click', showHighScoresModal);
+  }
+
+  // Handle high score form submission
+  highScoreForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const playerName = playerNameInput.value.trim();
+    if (playerName) {
+      submitHighScore(playerName, score);
+      highScoresModal.hide();
+    }
+  });
+
+  function submitHighScore(name, score) {
+    if (score === 0) {
+      showMessage("You cannot submit a score of zero!");
+      return;
+    }
+  
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    highScores.push({ name, score });
+    highScores.sort((a, b) => b.score - a.score);
+    highScores.splice(10); // Keep only top 10 scores
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    console.log("High score submitted!");
+    showMessage("High score submitted!");
+    updateHighScoresList();
+    resetGame(); // Restart the game after submitting the high score
+  }
+
+  // Function to handle game over
+  function handleGameOver() {
+    showHighScoresModal();
+    highScoresModalElement.addEventListener('hidden.bs.modal', () => {
+      resetGame(); // Restart the game after the high scores modal is closed
+    });
+  }
 
   // Function to create bricks
   function createBricks() {
@@ -55,6 +139,12 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (row === 2) brick.classList.add("green-brick");
         else brick.classList.add("yellow-brick");
 
+        // Add power-up bricks
+        if (Math.random() < 0.1) { // 10% chance to be a power-up brick
+          brick.classList.add("power-up-brick");
+          
+        }
+
         bricksContainer.appendChild(brick);
       }
     }
@@ -71,8 +161,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (i < 8) brick.classList.add("red-brick");
       else if (i < 16) brick.classList.add("blue-brick");
-      else if (i < 32 )brick.classList.add("green-brick");
+      else if (i < 32) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
+
+      if (Math.random() < 0.1) { // 10% chance to be a power-up brick
+        brick.classList.add("power-up-brick");
+        
+      }
 
       bricksContainer.appendChild(brick);
     }
@@ -92,6 +187,11 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (i < 64) brick.classList.add("green-brick");
       else brick.classList.add("yellow-brick");
 
+      if (Math.random() < 0.1) { // 10% chance to be a power-up brick
+        brick.classList.add("power-up-brick");
+        
+      }
+
       bricksContainer.appendChild(brick);
     }
   }
@@ -100,6 +200,109 @@ document.addEventListener("DOMContentLoaded", () => {
   function checkBricks() {
     const bricks = document.querySelectorAll(".brick:not(.hit)");
     return bricks.length === 0;
+  }
+
+  // Function to handle power-up effects
+  function handlePowerUp() {
+    const powerUps = ["increasePaddleSize", "increaseBallSize", "increaseBallSpeed"];
+    const selectedPowerUp = powerUps[Math.floor(Math.random() * powerUps.length)];
+
+    switch (selectedPowerUp) {
+      case "increasePaddleSize":
+        increasePaddleSize();
+        break;
+      case "increaseBallSize":
+        increaseBallSize();
+        break;
+      case "increaseBallSpeed":
+        increaseBallSpeed();
+        break;
+      default:
+        break;
+    }
+  }
+
+  // Function to reset power-up effects
+  function resetPowerUps() {
+    // Reset paddle size
+    paddle.style.width = "100px"; // Default paddle width
+    // Reset ball size
+    ball.style.width = "10px"; // Default ball width
+    ball.style.height = "10px"; // Default ball height
+    // Reset ball speed
+    ballSpeed = { x: 0, y: 0 }; // Default ball speed
+  }
+
+  function showPowerUpMessage(message) {
+    
+    powerUpMessage.textContent = message;
+    powerUpMessage.style.display = 'block';
+  }
+
+  function hidePowerUpMessage() {
+    
+    powerUpMessage.style.display = 'none';
+  }
+
+  // Power-up: Increase paddle size
+  function increasePaddleSize() {
+    const originalPaddleWidth = paddle.offsetWidth;
+    paddle.style.width = `${originalPaddleWidth + 20}px`;
+
+    showPowerUpMessage("Paddle Size Increased!");
+
+    // Clear existing timer if any
+    if (paddleSizeTimer) {
+      clearTimeout(paddleSizeTimer);
+    }
+
+    // Set a timer to revert the power-up effect after 10 seconds
+    paddleSizeTimer = setTimeout(() => {
+      paddle.style.width = `${originalPaddleWidth}px`;
+      hidePowerUpMessage();
+    }, 10000); // 10 seconds
+  }
+
+  // Power-up: Increase ball size
+  function increaseBallSize() {
+    const originalBallSize = ball.offsetWidth;
+    ball.style.width = `${originalBallSize + 10}px`;
+    ball.style.height = `${originalBallSize + 10}px`;
+
+    showPowerUpMessage("Ball Size Increased!");
+
+    // Clear existing timer if any
+    if (ballSizeTimer) {
+      clearTimeout(ballSizeTimer);
+    }
+
+    // Set a timer to revert the power-up effect after 10 seconds
+    ballSizeTimer = setTimeout(() => {
+      ball.style.width = `${originalBallSize}px`;
+      ball.style.height = `${originalBallSize}px`;
+      hidePowerUpMessage();
+    }, 10000); // 10 seconds
+  }
+
+  // Power-up: Increase ball speed
+  function increaseBallSpeed() {
+    const originalBallSpeed = { ...ballSpeed };
+    ballSpeed.x *= 1.1;
+    ballSpeed.y *= 1.1;
+
+    showPowerUpMessage("Ball Speed Increased!");
+
+    // Clear existing timer if any
+    if (ballSpeedTimer) {
+      clearTimeout(ballSpeedTimer);
+    }
+
+    // Set a timer to revert the power-up effect after 10 seconds
+    ballSpeedTimer = setTimeout(() => {
+      ballSpeed.x = originalBallSpeed.x;
+      ballSpeed.y = originalBallSpeed.y;
+      hidePowerUpMessage();
+    }, 10000); // 10 seconds
   }
 
   // Reset the ball and paddle position
@@ -124,6 +327,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Re-enable the start button
     startButton.disabled = false;
 
+    // Reset power-up effects
+    resetPowerUps();
+
     // Debugging output
     console.log("Ball Position:", ballPosition);
     console.log("Paddle Position:", paddlePosition);
@@ -146,6 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
     createBricks();
     resetBallAndPaddle();
     isGameRunning = false; // Ensure game is not running after reset
+    resetPowerUps();
+    startButton.disabled = false; // Re-enable the start button
   }
 
   // Event listener to move the paddle with mouse
@@ -210,26 +418,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Function to play sound with reset
+  function playSound(sound) {
+    sound.currentTime = 0; // Reset audio playback position
+    sound.play(); // Play sound
+  }
+
   // Ball movement and collision detection
   function moveBall() {
     ballPosition.x += ballSpeed.x;
     ballPosition.y += ballSpeed.y;
-  
+
     const gameBounds = gameViewport.getBoundingClientRect();
     const ballDiameter = ball.offsetWidth;
-  
+
     // Wall collision
     if (ballPosition.x <= 0 || ballPosition.x >= gameBounds.width - ballDiameter) {
       ballSpeed.x *= -1;
-      beepA.currentTime = 0; // Reset audio playback position
-      beepA.play(); // Play sound for wall collision
+      playSound(beepA); // Play sound for wall collision
     }
     if (ballPosition.y <= 0) {
       ballSpeed.y *= -1;
-      beepA.currentTime = 0; // Reset audio playback position
-      beepA.play(); // Play sound for wall collision
+      playSound(beepA); // Play sound for wall collision
     }
-  
+
     // Paddle collision
     const paddleRect = paddle.getBoundingClientRect();
     const ballRect = ball.getBoundingClientRect();
@@ -244,22 +456,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const maxBounceAngle = Math.PI / 3; // 60 degrees
       const normalizedHitPosition = hitPosition / (paddleRect.width / 2);
       const bounceAngle = normalizedHitPosition * maxBounceAngle;
-  
+
       // Calculate new ball speed based on the bounce angle
       const speed = Math.sqrt(ballSpeed.x * ballSpeed.x + ballSpeed.y * ballSpeed.y);
       ballSpeed.x = speed * Math.sin(bounceAngle);
       ballSpeed.y = -speed * Math.cos(bounceAngle);
-  
-      beepB.currentTime = 0; // Reset audio playback position
-      beepB.play(); // Play sound for paddle collision
+
+      playSound(beepB); // Play sound for paddle collision
     }
-  
+
     // Brick collision
     if (!isCooldown) {
       const bricks = document.querySelectorAll(".brick");
       for (const brick of bricks) {
         if (brick.classList.contains("hit")) continue; // Skip hidden bricks
-  
+
         const rect = brick.getBoundingClientRect();
         if (
           ballRect.left < rect.right &&
@@ -269,22 +480,33 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
           ballSpeed.y *= -1;
           brick.classList.add("hit"); // Add 'hit' class to hide the brick
+          
           score++;
           scoreDisplay.textContent = `Score: ${score}`;
-          // isCooldown = true;
-          // setTimeout(() => {
-          //   isCooldown = false;
-          // }, 500); // 500 millisecond cooldown
-          beepA.currentTime = 0; // Reset audio playback position
-          beepA.play(); // Play sound for brick collision
+         
+          playSound(beepA); // Play sound for brick collision
+
+          if (brick.classList.contains("power-up-brick")) {
+            handlePowerUp();
+            playSound(powerUp); // Play sound for power-up brick
+
+
+          }// Apply power-up effect
+
+          isCooldown = true;
+          setTimeout(() => {
+            isCooldown = false;
+          }, 100); // 100 millisecond cooldown
           break; // Exit the loop after hitting one brick
         }
       }
     }
-  
+
     // Check if there are no bricks left
     if (checkBricks()) {
+      playSound(complete); // Play sound for completing a round
       alert("Round Cleared!");
+      
       currentRound++;
       if (currentRound === 2) {
         resetBallAndPaddle();
@@ -295,18 +517,19 @@ document.addEventListener("DOMContentLoaded", () => {
         isGameRunning = false; // Ensure game is not running after clearing a round
         createBricksRound3();
       } else {
+        playSound(completeGame); // Play sound for completing the game
         alert("You have completed all rounds!");
         isGameRunning = false;
-        resetGame();
+        
+        handleGameOver(); // Show high scores modal and reset the game after it is closed
       }
     }
-  
+
     // Lose condition (ball hits bottom of viewport)
     if (ballPosition.y >= gameBounds.height - ballDiameter) { // Ball hits bottom of the viewport
       lives--;
       livesDisplay.textContent = `Lives: ${lives}`;
-      fail.currentTime = 0; // Reset audio playback position
-      fail.play(); // Play sound for losing a life
+      playSound(fail); // Play sound for losing a life
       livesRemaining.textContent = `You have ${lives} lives remaining`; // Update lives remaining message
       livesRemaining.style.display = 'block'; // Show the message
       setTimeout(() => {
@@ -319,10 +542,10 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("Game Over!");
         isGameRunning = false;
-        resetGame();
+        handleGameOver();
       }
     }
-   
+
     // Update ball position
     ball.style.left = `${ballPosition.x}px`;
     ball.style.top = `${ballPosition.y}px`;
@@ -338,6 +561,26 @@ document.addEventListener("DOMContentLoaded", () => {
       moveBall();
       requestAnimationFrame(gameLoop);
     }
+  }
+
+  // Function to show a message
+  function showMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.textContent = message;
+    messageElement.style.position = 'absolute';
+    messageElement.style.top = '50%';
+    messageElement.style.left = '50%';
+    messageElement.style.transform = 'translate(-50%, -50%)';
+    messageElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    messageElement.style.color = 'white';
+    messageElement.style.padding = '20px';
+    messageElement.style.borderRadius = '10px';
+    messageElement.style.zIndex = '1000';
+    document.body.appendChild(messageElement);
+
+    setTimeout(() => {
+      document.body.removeChild(messageElement);
+    }, 3000); // Display the message for 3 seconds
   }
 
   // Initialize game
