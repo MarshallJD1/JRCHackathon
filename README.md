@@ -182,6 +182,12 @@ This included regular debugging and testing using the Dev Tools as provided with
 [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
 ![Lighthouse](/documentation/images/lighthouse.webp)
 
+[ARIA Validation](https://wave.webaim.org/report#/https://marshalljd1.github.io/JRCHackathon/)
+![ARIA Validation](/documentation/images/validation-aria.webp)
+
+[JS Validation](https://jshint.com/)
+![JS Validation](/documentation/images/validation-jshint.webp)
+
 <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
 
