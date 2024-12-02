@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const showHighScoresButtonDesktop = document.getElementById('show-high-scores-desktop');
   const burgerMenu = new bootstrap.Collapse(document.getElementById('navbarNav'));
   
+  
 
   // Get references to audio elements
   const beepA = document.getElementById("beep-a");
