@@ -255,6 +255,18 @@ h1 {
   }
 }
 
+/* Hide the button-container on touch devices by default */
+@media (pointer: coarse) {
+  .button-container {
+    display: none;
+  }
+}
+
+/* Show the button-container when selected */
+.button-container.selected {
+  display: flex;
+}
+
 /* general media rules */
 
 @media (max-width: 768px) {
