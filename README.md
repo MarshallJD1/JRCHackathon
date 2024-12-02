@@ -10,12 +10,15 @@
 
 ## CONTENTS
 
-*
-*
-*
-*
-*
-*
+* [Concept](#concept)
+* [How to Play](#how-to-play)
+* [Collaborators](#collaborators)
+* [Project Planning](#project-planning)
+  * [Wire Frames](#wire-frames)
+  * [Project Board](#project-board)
+  * [Styling Choices](#styling-choices)
+* [Features for MVP](#features-for-mvp)
+* [Features to be Added](#features-to-be-added)
 * [Testing](#testing)
   * [HTML Validation using W3C Validation](#html-validation-using-w3c-validation)
   * [CSS Validation using W3C Validation](#css-validation-using-w3c-validation)
