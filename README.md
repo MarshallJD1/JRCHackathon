@@ -117,6 +117,13 @@ progress of our implementation </p>
 
 <br>
 
-<p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
-popped here :) </p>
-
+<ul>
+ <li>Fixed incorrect ball placement when starting game</li>
+ <li>Fixed incorrect paddle collisions with the ball</li>
+ <li>Fixed incorrect amount of bricks broken from a single collision</li>
+ <li>Fixed bricks moving after neighbouring brick is destroyed</li>
+ <li>Fixed incorrect ball collision when hitting viewport</li>
+ <li>Fixed incorrect speed adjustment after losing a life</li>
+ <li>Fixed round generation</li>
+ <li>Fixed scroll issue on mobile devices</li>
+</ul>
