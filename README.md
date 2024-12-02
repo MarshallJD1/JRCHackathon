@@ -1,5 +1,34 @@
 # JRCHackathon - Brick Breaker
 
+[View live project here on GitHub](https://marshalljd1.github.io/JRCHackathon/)
+
+<br>
+
+![screenshot of landing page](/documentation/images/landingpage.webp)
+
+---
+
+## CONTENTS
+
+*
+*
+*
+*
+*
+*
+* [Testing](#testing)
+  * [HTML Validation using W3C Validation](#html-validation-using-w3c-validation)
+  * [CSS Validation using W3C Validation](#css-validation-using-w3c-validation)
+  * [Lighthouse scores via Chrome Developer Tools](#lighthouse-scores-via-chrome-developer-tools)
+  * [Bugs & Fixes](#bugs--fixes)
+  * [Unsolved Bugs](#unsolved-bugs)
+* [Credits](#credits) 
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
+
+
+---
+
 ## Concept 
 
 <br>
@@ -7,6 +36,8 @@
 <p>For our Hackathon submission we are going for a remake of the old Atari Classic Breakout.
 We will be adding extra content throughout the project if time constraints allow.</p> 
 <p>This will be outlined in the ReadME.</p>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 
 
@@ -19,6 +50,8 @@ We will be adding extra content throughout the project if time constraints allow
 <p> --Touch device controls to be implimented--</p>
 <p> Press the start button to set the game in motion and keep that rally up!</p>
 <p>Destroy all the bricks and dont miss your rebounds</p> 
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 
 ## Collaborators
@@ -31,6 +64,8 @@ We will be adding extra content throughout the project if time constraints allow
 <li>[@csmatthew](https://github.com/csmatthew)</li>
 <li>[@MarshallJD1](https://github.com/MarshallJD1)</li>
 </ul>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 ## Project Planning 
 
@@ -43,6 +78,8 @@ We will be adding extra content throughout the project if time constraints allow
   We wanted to hit all the Learning objectives given to us, one of them being 'responsive design between all devices'.
   So we have planned our designs for Tablet/Mobile and desktop.
 </p>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 ## Wire frames
 
@@ -61,6 +98,8 @@ We will be adding extra content throughout the project if time constraints allow
 <p> Below is the Wire frame for desktop</p>
 
 ![Desktops](https://github.com/user-attachments/assets/ff14b953-41b4-4e0e-a6bc-3938411cb3d8)
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 
 ## Project Board
@@ -75,6 +114,8 @@ progress of our implementation </p>
 
 
 <p>More of these will be added- at current only the should haves have been listed, but we do intend to add some scope for possible extra features </p>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 
 ## Styling Choices
@@ -82,6 +123,8 @@ progress of our implementation </p>
 <br>
 
 <p> -------------------------</p>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 
 
@@ -99,6 +142,8 @@ progress of our implementation </p>
   <li>Game has an instructions tab</li>
   <li>Game has an endgame screen for both clearing all the bricks and losing all lives</li>
 </ul>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 
 ## Features to be added
@@ -112,11 +157,35 @@ progress of our implementation </p>
   <li>Timer for each level</li>
   <li>Possible quiz modal element</li>
 </ul>
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
+
+## Testing
+
+Testing and validation os the website was carried out throughout the course of the project.
+
+This included regular debugging and testing using the Dev Tools as provided within Chrome Browser.
+
+[HTML Validation](https://validator.w3.org/)<br>
+![HTML Validation](/documentation/images/validation-html.webp)
+
+[CSS Validation](https://jigsaw.w3.org/css-validator/)<br>
+![CSS Validation](/documentation/images/validation-css.webp)
+
+[Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
+![Lighthouse](/documentation/images/lighthouse.webp)
+
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
 
 ## Noted Bug Fixes  
 
 <br>
 
+<p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
+popped here :) </p>
+
+<hr>
 <ul>
  <li>Fixed incorrect ball placement when starting game</li>
  <li>Fixed incorrect paddle collisions with the ball</li>
@@ -127,3 +196,20 @@ progress of our implementation </p>
  <li>Fixed round generation</li>
  <li>Fixed scroll issue on mobile devices</li>
 </ul>
+
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
+
+## Credits
+
+### **Content References**
+- All content written for this site is the product of the three authors who contributed to this repository and the use of Github Copilot
+- [GitHub Copilot](https://github.com/features/copilot)
+
+### **Media References**
+- [Freesound](https://freesound.org) for the sound effects
+  - [User: 'jobro'](https://freesound.org/people/jobro/) for the ['beep-a'](https://freesound.org/people/jobro/sounds/33775/) and ['beep-b'](https://freesound.org/people/jobro/sounds/33776/) sounds.
+  - [User: 'AceOfSpacesProduc100'](https://freesound.org/people/AceOfSpadesProduc100/) for the ['fail' sound.](https://freesound.org/people/AceOfSpadesProduc100/sounds/333785/)
+
+  <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
+<br>
