@@ -1,5 +1,32 @@
 # JRCHackathon - Brick Breaker
 
+[View life project here on GitHub](https://marshalljd1.github.io/JRCHackathon/)
+
+<br>
+
+![screenshot of landing page](/documentation/images/landingpage.webp)
+
+---
+
+## CONTENTS
+
+*
+*
+*
+*
+*
+*
+* [Testing](#testing)
+  * [HTML Validation using W3C Validation](#html-validation-using-w3c-validation)
+  * [CSS Validation using W3C Validation](#css-validation-using-w3c-validation)
+  * [Lighthouse scores via Chrome Developer Tools](#lighthouse-scores-via-chrome-developer-tools)
+  * [Bugs & Fixes](#bugs--fixes)
+  * [Unsolved Bugs](#unsolved-bugs)
+* [Credits](#credits) 
+
+
+---
+
 ## Concept 
 
 <br>
@@ -113,13 +140,6 @@ progress of our implementation </p>
   <li>Possible quiz modal element</li>
 </ul>
 
-## Noted Bug Fixes  
-
-<br>
-
-<p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
-popped here :) </p>
-
 ## Testing
 
 Testing and validation os the website was carried out throughout the course of the project.
@@ -135,6 +155,15 @@ This included regular debugging and testing using the Dev Tools as ptovided with
 [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
 ![Lighthouse](/documentation/images/placeholder-image.jpg)
 
+<br>
+
+## Noted Bug Fixes  
+
+<br>
+
+<p> Any known bugs that gave us trouble to workthrough and needed to be spoken about should be 
+popped here :) </p>
+
 <hr>
 <ul>
  <li>Fixed incorrect ball placement when starting game</li>
@@ -146,3 +175,14 @@ This included regular debugging and testing using the Dev Tools as ptovided with
  <li>Fixed round generation</li>
  <li>Fixed scroll issue on mobile devices</li>
 </ul>
+
+## Credits
+
+### **Content References**
+- All content written for this site is the product of the three authors who contributed to this repository and the use of Github Copilot
+- [GitHub Copilot](https://github.com/features/copilot)
+
+### **Media References**
+- [Freesound](https://freesound.org) for the sound effects
+  - [User: 'jobro'](https://freesound.org/people/jobro/) for the ['beep-a'](https://freesound.org/people/jobro/sounds/33775/) and ['beep-b'](https://freesound.org/people/jobro/sounds/33776/) sounds.
+  - [User: 'AceOfSpacesProduc100'](https://freesound.org/people/AceOfSpadesProduc100/) for the ['fail' sound.](https://freesound.org/people/AceOfSpadesProduc100/sounds/333785/)
