@@ -155,6 +155,7 @@ This included regular debugging and testing using the Dev Tools as provided with
 [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)<br>
 ![Lighthouse](/documentation/images/lighthouse.webp)
 
+<p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
 
 ## Noted Bug Fixes  
