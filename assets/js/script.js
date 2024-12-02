@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const highScoresModalElement = document.getElementById('highScoresModal');
   const highScoresModal = new bootstrap.Modal(highScoresModalElement);
   const showHighScoresButton = document.getElementById('show-high-scores');
+  const showHighScoresButtonDesktop = document.getElementById('show-high-scores-desktop');
   const burgerMenu = new bootstrap.Collapse(document.getElementById('navbarNav'));
   
 
@@ -82,6 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener for the high scores button
   if (showHighScoresButton) {
     showHighScoresButton.addEventListener('click', showHighScoresModal);
+  }
+
+  // Event listener for the high scores button in the burger menu
+  if (showHighScoresButton) {
+    showHighScoresButton.addEventListener('click', () => {
+      updateHighScoresList();
+      highScoresModal.show();
+    });
+  }
+
+  // Event listener for the high scores button in the button container
+  if (showHighScoresButtonDesktop) {
+    showHighScoresButtonDesktop.addEventListener('click', () => {
+      updateHighScoresList();
+      highScoresModal.show();
+    });
   }
 
   // Handle high score form submission
