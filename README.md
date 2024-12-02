@@ -125,7 +125,11 @@ progress of our implementation </p>
 
 <br>
 
-<p> -------------------------</p>
+<p>To emulate the gaming experience of the video arcade games of the 1970s and 1980s, the decision was to utilise a retro 8-bit themed palette.</p>
+
+![Colour Palette](/documentation/images/palette.webp)
+
+
 <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
 
