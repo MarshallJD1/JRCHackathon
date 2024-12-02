@@ -3,29 +3,40 @@
 
 /* CSS Variables */
 :root {
-    /* fonts */
-    --primary-font: "Geo", sans-serif;
-    --secondary-font: sans-serif;
-    /* font color */
-    --primary-color: #f9f5ef; /* white */
-    --secondary-color: #8a8fc4; /* blue-light */
-    --highlight-color: #d88038; /* orange */
-    --highlight-color-light: #e3d245; /* yellow */
+  /* fonts */
+  --primary-font: "Geo", sans-serif;
+  --secondary-font: sans-serif;
+  /* font color */
+  --primary-color: #f9f5ef;
+  /* white */
+  --secondary-color: #8a8fc4;
+  /* blue-light */
+  --highlight-color: #d88038;
+  /* orange */
+  --highlight-color-light: #e3d245;
+  /* yellow */
 
-    /* background color */
-    --background-color: #040303; /* black */
-    
-    /* game elements */
-    /* brick color */
-    --brick-red: #a13d3b; /* red */
-    --brick-green: #6c8c50; /* green */
-    --brick-blue-light: #8a8fc4; /* blue-light */
-    --brick-yellow: #e3d245; /* yellow */
+  /* background color */
+  --background-color: #040303;
+  /* black */
 
-    /* ball color */
-    --ball: #a13d3b; /* red */
-    /* paddle color */
-    --paddle: #9a407e /* violet */
+  /* game elements */
+  /* brick color */
+  --brick-red: #a13d3b;
+  /* red */
+  --brick-green: #6c8c50;
+  /* green */
+  --brick-blue-light: #8a8fc4;
+  /* blue-light */
+  --brick-yellow: #e3d245;
+  /* yellow */
+
+  /* ball color */
+  --ball: #a13d3b;
+  /* red */
+  /* paddle color */
+  --paddle: #9a407e
+    /* violet */
 }
 
 /* styles.css */
@@ -109,7 +120,8 @@ h1 {
   color: white;
   font-size: 10vw;
   text-align: center;
-  display: none; /* Hide by default */
+  display: none;
+  /* Hide by default */
 }
 
 .lives-remaining {
@@ -120,7 +132,8 @@ h1 {
   color: white;
   font-size: 24px;
   text-align: center;
-  display: none; /* Hide by default */
+  display: none;
+  /* Hide by default */
 }
 
 /* game elements */
@@ -153,11 +166,16 @@ h1 {
 }
 
 .placeholder {
-  width: 50px; /* Match brick width */
-  height: 20px; /* Match brick height */
-  background-color: transparent; /* Make it invisible */
-  border: none; /* Optional: Remove any default borders */
+  width: 50px;
+  /* Match brick width */
+  height: 20px;
+  /* Match brick height */
+  background-color: transparent;
+  /* Make it invisible */
+  border: none;
+  /* Optional: Remove any default borders */
 }
+
 .power-up-message {
   position: absolute;
   top: 30%;
@@ -166,7 +184,8 @@ h1 {
   color: rgb(255, 0, 242);
   font-size: 4em;
   text-align: center;
-  display: none; /* Hide by default */
+  display: none;
+  /* Hide by default */
 }
 
 .red-brick {
@@ -186,7 +205,8 @@ h1 {
 }
 
 .power-up-brick {
-  background-color: purple; /* Different color for power-up bricks */
+  background-color: purple;
+  /* Different color for power-up bricks */
 }
 
 .hit {
@@ -201,18 +221,22 @@ h1 {
 .button-container {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Space between buttons */
-  margin-bottom: 20px; /* Space below the buttons */
+  gap: 10px;
+  /* Space between buttons */
+  margin-bottom: 20px;
+  /* Space below the buttons */
 }
 
 .header-container {
   display: flex;
-  justify-content: center; /* Center the header */
+  justify-content: center;
+  /* Center the header */
   align-items: center;
   width: 100%;
   padding: 10px;
   background-color: var(--background-color);
-  position: relative; /* Ensure the navbar-toggler is positioned relative to the header */
+  position: relative;
+  /* Ensure the navbar-toggler is positioned relative to the header */
 }
 
 .header-container h1 {
@@ -222,29 +246,37 @@ h1 {
 
 .navbar {
   margin: 0;
-  position: absolute; /* Position the navbar absolutely within the header */
+  position: absolute;
+  /* Position the navbar absolutely within the header */
   top: 0;
-  right: 10px; /* Adjust the right margin to position the button */
+  right: 10px;
+  /* Adjust the right margin to position the button */
   z-index: 1000;
-  background-color: black; /* Set background color to black */
-  padding: 0; /* Remove padding */
+  background-color: black;
+  /* Set background color to black */
+  padding: 0;
+  /* Remove padding */
 }
 
 .navbar-toggler {
   margin-left: 10px;
-  padding: 5px 10px; /* Adjust padding to make the button smaller */
-   /* Make sure is closed by default*/ 
-   
+  padding: 5px 10px;
+  /* Adjust padding to make the button smaller */
+  /* Make sure is closed by default*/
+
 }
 
 .navbar-collapse {
   position: absolute;
-  top: 50px; /* Adjust this value to position the menu below the header */
+  top: 50px;
+  /* Adjust this value to position the menu below the header */
   left: 0;
   width: 100%;
-  background-color: black; /* Set background color to black */
-  z-index: 999; /* Ensure it is above other elements */
-  
+  background-color: black;
+  /* Set background color to black */
+  z-index: 999;
+  /* Ensure it is above other elements */
+
 }
 
 /* touch devices CSS override */
@@ -268,20 +300,41 @@ h1 {
 }
 
 /* general media rules */
+/* Hide burger menu on larger devices */
+@media (min-width: 883px) {
+  .navbar {
+    display: none;
+  }
+}
+
+/* Show the "tap to begin" message on touch devices */
+@media (pointer: coarse) {
+  .tap-to-begin {
+    display: block;
+  }
+
+  .button-container {
+    display: none;
+  }
+}
 
 @media (max-width: 768px) {
   #game-viewport {
     width: 100%;
     height: 80%;
   }
-  body , html {
+
+  body,
+  html {
     overflow: hidden;
     height: 100%;
   }
 
   #game-container {
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Prevent scrolling within the game container */
+    height: 100vh;
+    /* Full viewport height */
+    overflow: hidden;
+    /* Prevent scrolling within the game container */
   }
 
   #paddle {
@@ -302,12 +355,65 @@ h1 {
   }
 
   .navbar-collapse {
-    top: 40px; /* Adjust this value to position the menu below the header */
-    
+    top: 40px;
+    /* Adjust this value to position the menu below the header */
+    display: none;
+    /* Hide the menu by default */
   }
 
   .header-container {
-    justify-content: center; /* Center the header on smaller devices */
+    justify-content: center;
+    /* Center the header on smaller devices */
+  }
+}
+
+/* Landscape orientation for smaller devices */
+@media (max-width: 768px) and (orientation: landscape) {
+  #game-viewport {
+    width: 100%;
+    height: 90%;
+  }
+
+  body,
+  html {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  #game-container {
+    height: 100vh;
+    /* Full viewport height */
+    overflow: hidden;
+    /* Prevent scrolling within the game container */
+  }
+
+  #paddle {
+    width: 12%;
+  }
+
+  .brick {
+    width: 10%;
+    height: 5%;
+  }
+
+  .button-container {
+    display: none;
+  }
+
+  .navbar {
+    display: block;
+  }
+
+  .navbar-collapse {
+    top: 40px;
+    /* Adjust this value to position the menu below the header */
+    display: none;
+    /* Hide the menu by default */
+  }
+
+  .header-container {
+    justify-content: center;
+    /* Center the header on smaller devices */
   }
 }
 
@@ -335,12 +441,14 @@ h1 {
   }
 
   .navbar-collapse {
-    top: 40px; /* Adjust this value to position the menu below the header */
-    
+    top: 40px;
+    /* Adjust this value to position the menu below the header */
+
   }
 
   .header-container {
-    justify-content: center; /* Center the header on smaller devices */
+    justify-content: center;
+    /* Center the header on smaller devices */
   }
 }
 
@@ -350,14 +458,18 @@ h1 {
     width: 100%;
     height: 90%;
   }
-  body, html {
+
+  body,
+  html {
     overflow: hidden;
     height: 100%;
   }
 
   #game-container {
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Prevent scrolling within the game container */
+    height: 100vh;
+    /* Full viewport height */
+    overflow: hidden;
+    /* Prevent scrolling within the game container */
   }
 
   #paddle {
@@ -378,12 +490,15 @@ h1 {
   }
 
   .navbar-collapse {
-    top: 40px; /* Adjust this value to position the menu below the header */
-    display: none; /* Hide the menu by default */
+    top: 40px;
+    /* Adjust this value to position the menu below the header */
+    display: none;
+    /* Hide the menu by default */
   }
 
   .header-container {
-    justify-content: center; /* Center the header on smaller devices */
+    justify-content: center;
+    /* Center the header on smaller devices */
   }
 }
 
@@ -411,25 +526,18 @@ h1 {
   }
 
   .navbar-collapse {
-    top: 40px; /* Adjust this value to position the menu below the header */
-    display: none; /* Hide the menu by default */
+    top: 40px;
+    /* Adjust this value to position the menu below the header */
+    display: none;
+    /* Hide the menu by default */
   }
 
   .header-container {
-    justify-content: center; /* Center the header on smaller devices */
+    justify-content: center;
+    /* Center the header on smaller devices */
   }
 }
 
-/* Hide burger menu on larger devices */
-@media (min-width: 883px) {
-  .navbar {
-    display: none;
-  }
-}
-
-/* Show the "tap to begin" message on touch devices */
-@media (pointer: coarse) {
-  .tap-to-begin {
-    display: block;
-  }
+.button-container.selected {
+  display: flex;
 }

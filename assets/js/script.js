@@ -11,6 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameViewport = document.getElementById("game-viewport");
   const tapToBegin = document.getElementById("tap-to-begin"); // touch screen only
   const livesRemaining = document.getElementById("lives-remaining"); // New element
+  const powerUpMessage = document.getElementById("power-up-message");
+  const highScoresModalElement = document.getElementById('highScoresModal');
+  const highScoresModal = new bootstrap.Modal(highScoresModalElement);
+  const showHighScoresButton = document.getElementById('show-high-scores');
+  const showHighScoresButtonDesktop = document.getElementById('show-high-scores-desktop');
+  const burgerMenu = new bootstrap.Collapse(document.getElementById('navbarNav'));
+  
+  
+
   const buttonContainer = document.querySelector(".button-container");
 
   // Get references to audio elements

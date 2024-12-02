@@ -136,3 +136,13 @@ This included regular debugging and testing using the Dev Tools as ptovided with
 ![Lighthouse](/documentation/images/placeholder-image.jpg)
 
 <hr>
+<ul>
+ <li>Fixed incorrect ball placement when starting game</li>
+ <li>Fixed incorrect paddle collisions with the ball</li>
+ <li>Fixed incorrect amount of bricks broken from a single collision</li>
+ <li>Fixed bricks moving after neighbouring brick is destroyed</li>
+ <li>Fixed incorrect ball collision when hitting viewport</li>
+ <li>Fixed incorrect speed adjustment after losing a life</li>
+ <li>Fixed round generation</li>
+ <li>Fixed scroll issue on mobile devices</li>
+</ul>
