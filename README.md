@@ -210,6 +210,7 @@ popped here :) </p>
 - [Freesound](https://freesound.org) for the sound effects
   - [User: 'jobro'](https://freesound.org/people/jobro/) for the ['beep-a'](https://freesound.org/people/jobro/sounds/33775/) and ['beep-b'](https://freesound.org/people/jobro/sounds/33776/) sounds.
   - [User: 'AceOfSpacesProduc100'](https://freesound.org/people/AceOfSpadesProduc100/) for the ['fail' sound.](https://freesound.org/people/AceOfSpadesProduc100/sounds/333785/)
+  - Round Complete and Game complete sounds created by MarshallJD
 
   <p align="right"><a href="#jrchackathon---brick-breaker">Back To Top</a></p>
 <br>
